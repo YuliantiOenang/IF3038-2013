@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `komentar` (
 --
 
 CREATE TABLE IF NOT EXISTS `pelampiran` (
-  `IDTugas` int(3) NOT NULL AUTO_INCREMENT,
+  `IDTugas` int(3) NOT NULL,
   `lampiran` varchar(256) NOT NULL,
   KEY `IDTugas` (`IDTugas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -103,10 +103,10 @@ INSERT INTO `pengguna` (`username`, `password`, `fullname`, `birthday`, `email`,
 
 CREATE TABLE IF NOT EXISTS `penugasan` (
   `username` varchar(30) NOT NULL,
-  `IDTask` int(3) NOT NULL AUTO_INCREMENT,
+  `IDTask` int(3) NOT NULL,
   PRIMARY KEY (`username`,`IDTask`),
   KEY `IDTask` (`IDTask`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
