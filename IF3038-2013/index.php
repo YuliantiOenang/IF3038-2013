@@ -1,29 +1,37 @@
+<?php
+	session_start();
+	if(isset($_SESSION['bananauser']))
+		header('location:home.php');
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Banana Board - Your Online Do List</title>		
 		<link rel="stylesheet" href="style.css" type="text/css">
-		 <script src="index.js" type="text/javascript" language="javascript"> </script>
-		<style type="text/css"></style>
+		<script src="index.js" type="text/javascript" language="javascript"></script>
+		<script type="text/javascript" src="datetimepicker.js"></script>
 	</head>
 	
-	<body onload="generateDate()">
+	<body onload='initindex()'>
 		<div id="indexheader">
 			<img src="logo.png">					
-			<form id="loginform" class="login" action="home.php" method="post" name="loginform">		
+			<form id="loginform" class="login" action="loginsubmitter.php" method="post">		
 				<ul>
 					<h1 align="left">Login</h1>
 					<li>
 						<label for="username">Username:</label>
-						<input class="loginbox" id="username" type="text" name="username" />
+						<input class="loginbox" id="userheader" type="text" />
 					</li>
 					<li>
 						<label for="password">Password:</label>
-						<input class="loginbox" id="password" type="password" name="password" />
+						<input class="loginbox" id="password" type="password" />
 					</li>
 					<li>
 						<button class="loginbutton" type="submit"><b>Login</b></button>
 					</li>
+					<li id='incorrect'></li>
 				</ul>
 			</form>	
 		</div>		
@@ -35,42 +43,46 @@
 					<h1 align="left">Register now!</h1>
 					<li>
 						<label for="username">Username:</label>
-						<input type="text" name="user"  id="user" onchange="checkUsername()" required/><br>
-						<span>* minimal 5 karakter</span>
+						<input type="text" id="username" onkeyup="vdUsername()"/>
+						<img src="Image/false.png" id="icoUsername" alt="Not Accepted" /><br />
+						<span>* Minimal 5 karakter</span>
 					</li>
 					<li>
 						<label for="password">Password:</label>
-						<input type="password" name="pass" id="pass" onchange="checkPassword()" required/><br>
-						<span>* minimal 8 karakter</span>
+						<input type="password" id="pass" onkeyup="vdPassword()"/>
+						<img src="Image/false.png" id="icoUsername" alt="Not Accepted" /><br />
+						<span>* Minimal 8 karakter, tidak boleh sama dengan username maupun email</span>
 					</li>		
 					<li>
 						<label for="confirmpass">Confirmed Password:</label>
-						<input type="password" name="passconfirmed" id="passconfirmed" onChange="checkConfirmedPass()" required/>
+						<input type="password" id="txUsername" onkeyup="vdConfirmPassword()"/>
+						<img src="Image/false.png" id="icoConfirmPassword" alt="Not Accepted" /><br />
+						* Harus sama dengan password
 					</li>
 					<li>
 						<label for="namalengkap">Nama Lengkap:</label>
-						<input type="text" nama="namalengkap" id="namalengkap" onChange="checkNamaLengkap()" /><br>
-						<span>* minimal 2 kata (first name, last name)</span>
+						<input type="text" id="txName" onkeyup="vdName()" />
+						<img src="Image/false.png" id="icoName" alt="Not Accepted" /><br />
+						<span>* Minimal 2 kata (nama depan dan nama belakang)</span>
 					</li>	
 					<li>
 						<label for="tgllahir">Tanggal Lahir:</label>
-						<select id="tahunlist" name="tahun">
-						</select>
-						<select id="bulanlist" name="bulan">
-						</select>
-						<select id="tanggallist" name="tanggal">
-						</select>
+						<input id="tgllahir" type="text" size="25"/>
+						<a href="javascript:NewCal('tgllahir','ddmmyyyy')"><img src="image/cal.gif" alt="Pick a date"/></a>
 					</li>
 					<li>
 						<label for="email">Email:</label>
-						<input type="email" nama="email" id="email" required onchange="checkEmail()"/>
+						<input type="text" id="txEmail" required onkeyup="vdEmail()"/>
+						<img src="Image/false.png" id="icoEmail" alt="Not Accepted" /><br />
+						<span>* Sesuai dengan format alamat surel (x@x.xx)</span>
 					</li>
 					<li>
 						<label for="avatar">Avatar:</label>
-						<input class="file" type="file" name="avatar" id="avatar">
+						<input class="file" type="file" name="avatar" id="avatar"><br />
+						<span>* Hanya menerima berkas berekstensi .jpg atau .jpeg</span>
 					</li>
 					<li>
-						<button type="submit" disabled id="registerbutton" onClick="submit()">Register</button>
+						<button type="submit" id="registerbutton">Register</button>
 					</li>
 				</ul>
 			</form>
@@ -92,30 +104,5 @@
 			Chalkz Team<br>
 			Yulianti - Adriel - Amelia</p>			
 		</div>
-		
-		<script type="text/javascript">
-			var temp = document.getElementById("loginform");
-			temp.onsubmit = function()
-			{
-				var flag = true;
-				var a = document.getElementById("username");
-				if (a.value == "yuli")
-				{
-					var b = document.getElementById("password");
-					if (b.value != "amel")
-					{
-						alert("Password salah!");
-						flag = false;
-					}
-				}
-				else
-				{
-					alert("Username salah!");
-					flag = false;
-				}
-				
-				return flag;
-			}
-		</script>
 	</body>
 </html>

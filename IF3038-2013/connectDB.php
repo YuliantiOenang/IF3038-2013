@@ -9,7 +9,7 @@ class DB{
 	var $host     = "localhost";
 	var	$userName = "progin";
 	var	$password = "progin";
-	var $database = "progin";
+	var $database = "progin_405_13510081";
 	
 	
 	function connectDB(){
