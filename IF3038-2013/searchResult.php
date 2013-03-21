@@ -63,8 +63,8 @@
 					<img src="leftmenu.png"/>
 				</div>
 				
-				<div id="rightsidebar">
-					<ul class="kegiatan">
+				<div id="rightsidebar1">
+					<ul class="user">
 						<li class="Task1">
 							<div>
 							<b class="design1">Daftar Tugas</b>
@@ -77,7 +77,7 @@
 							</div>
 						</li>
 					</ul>
-					<ul class="kegiatan">
+					<ul class="user">
 						<li id="lala">
 							<div>
 							<b class="design1">Daftar User</b>
@@ -89,7 +89,7 @@
 							</div>
 						</li>
 					</ul>
-					<ul class="kegiatan">
+					<ul class="user">
 						<li id="lala">
 							<div>
 							<b class="design1">Daftar Kategori</b>
