@@ -16,7 +16,7 @@
 	
 	<body onload='initindex()'>
 		<div id="indexheader">
-			<img src="logo.png">					
+			<img src="image/logo.png">					
 			<form id="loginform" class="login" action="loginsubmitter.php" method="post">		
 				<ul>
 					<h1 align="left">Login</h1>
@@ -43,21 +43,21 @@
 					<h1 align="left">Register now!</h1>
 					<li>
 						<label for="username">Username:</label>
-						<input type="text" id="username" onkeyup="vdUsername()"/>
+						<input type="text" id="txUsername" onkeyup="vdUsername()"/>
 						<img src="Image/false.png" id="icoUsername" alt="Not Accepted" /><br />
 						<span>* Minimal 5 karakter</span>
 					</li>
 					<li>
 						<label for="password">Password:</label>
-						<input type="password" id="pass" onkeyup="vdPassword()"/>
-						<img src="Image/false.png" id="icoUsername" alt="Not Accepted" /><br />
+						<input type="password" id="txPassword" onkeyup="vdPassword()"/>
+						<img src="Image/false.png" id="icoPassword" alt="Not Accepted" /><br />
 						<span>* Minimal 8 karakter, tidak boleh sama dengan username maupun email</span>
 					</li>		
 					<li>
 						<label for="confirmpass">Confirmed Password:</label>
-						<input type="password" id="txUsername" onkeyup="vdConfirmPassword()"/>
+						<input type="password" id="txConfirmPassword" onkeyup="vdConfirmPassword()"/>
 						<img src="Image/false.png" id="icoConfirmPassword" alt="Not Accepted" /><br />
-						* Harus sama dengan password
+						<span>* Harus sama dengan password</span>
 					</li>
 					<li>
 						<label for="namalengkap">Nama Lengkap:</label>
@@ -67,7 +67,7 @@
 					</li>	
 					<li>
 						<label for="tgllahir">Tanggal Lahir:</label>
-						<input id="tgllahir" type="text" size="25"/>
+						<input id="tgllahir" type="text" size="25"/ readonly>
 						<a href="javascript:NewCal('tgllahir','ddmmyyyy')"><img src="image/cal.gif" alt="Pick a date"/></a>
 					</li>
 					<li>
@@ -78,7 +78,8 @@
 					</li>
 					<li>
 						<label for="avatar">Avatar:</label>
-						<input class="file" type="file" name="avatar" id="avatar"><br />
+						<input type="file" id="filename" onchange='vdAvatar()'> &nbsp;&nbsp;&nbsp;
+						<img src="Image/false.png" id="icoAvatar" alt="Not Accepted" /><br />
 						<span>* Hanya menerima berkas berekstensi .jpg atau .jpeg</span>
 					</li>
 					<li>
