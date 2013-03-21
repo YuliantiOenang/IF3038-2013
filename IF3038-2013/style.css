@@ -976,3 +976,21 @@ width: 300px;
 float: left;
 height:300px;
 }
+.suggest_link_over{
+cursor:pointer;
+background: purple;
+}
+.suggestBox{
+visibility:block;
+position:float;
+max-width:150;
+z-index:1;
+padding:5px;
+border: 1px solid #000000;
+overflow:auto;
+max-height:15;
+background-color:blue;);
+}
+.hidden{
+display:none;
+}

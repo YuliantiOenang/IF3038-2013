@@ -40,7 +40,7 @@ if (isset($_POST['tugas'])){
 	$insertPenugasan = "INSERT INTO penugasan (`username`, `IDTask`) VALUES ('devin', {$db->Record[0]})";//NEED TO BE CHANGED!!
 	$db->query($insertPenugasan);
 	
-	
+	header('Location:taskdetails.php');
 }
 else{
 	echo("Unauthorized access!!");
