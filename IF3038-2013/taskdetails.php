@@ -38,11 +38,11 @@
 							<h1>Details</h1>
 							<li>
 								<label for="tugas">Nama Tugas</label>
-								<input id="tugas" type="text" size="50" value="<?$task=new task();echo $task->name;?>" disabled/><br>
+								<input id="tugas" type="text" size="50" value="<?php $task=new task();echo $task->name;?>" disabled/><br>
 							</li>
                             <li>
 								<label for="tugas">Status</label>
-								<input id="tugas" type="text" size="50" value="<?$task=new task();echo $task->status;?>" disabled/><br>
+								<input id="tugas" type="text" size="50" value="<? $task=new task();echo $task->status;?>" disabled/><br>
                                 <form method="post">
                                 <button>ubah status</button>
                                 </form>
@@ -50,7 +50,7 @@
 							<li>
 								<label for="attach">Attachment</label>
 								<input id="attach" type="file" onChange="loadAttachment()"/><br>
-                                <?
+                                <?php
 								 $task=new task();
                                  while($info = mysql_fetch_array($task->attachment)) 
 								 { 
