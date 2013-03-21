@@ -1,11 +1,20 @@
 <!DOCTYPE html>
+<?php
+	if(isset ($_GET['kategori'])){
+		$kategori = $_GET('kategori');
+	}
+	else{
+		$kategori = 1;
+	}
+?>
 <html>
 
 <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title> Banana Board - New Task </title>
-		<link rel="stylesheet" type="text/css" href="style.css"/>   
-		<script type="text/javascript" src="datetimepicker.js"></script>		
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title> Banana Board - New Task </title>
+	<link rel="stylesheet" type="text/css" href="style.css"/>   
+	<script type="text/javascript" src="datetimepicker_css.js"></script>	
+	<script src="Raymond.js" type="text/javascript" language="javascript"> </script>	
 </head>
     
 <body>
@@ -36,21 +45,30 @@
 		
 			<div id="rightsidebar">
 				<div id="wrapper-left">
-					<form class="task" name="MakeForm" onsubmit="submitThis()">
+					<form class="task" name="MakeForm" method="post" onSubmit="checkSubmission(this, event)" enctype="multipart/form-data" action="AddTask.php">
 						<h1>Fill Details</h1>
 						<ul>
 							<li>
 								<label for="tugas" >Nama Tugas</label>
-								<input id="tugas" name="tugas" type="text" maxlength="25"/><br>
+								<input id="tugas" name="tugas" onkeyup="checkNamaTugas()" type="text" maxlength="25"/><img src="image/false.png" alt="False04" id="nlengkappic"/><br>
 							</li>
 							<li>
-								<label for="filebutton">Attachment</label>
-								<input id="filebutton" name="filebutton" type="file" onChange="loadAttachment()"/><br>
-							</li>		
-							
+								<label for="filebutton1">Attachment 1</label>
+								<input id="filebutton1" name="filebutton1" type="file" onChange="checkFile('filebutton1')"/>
+							</li>	
+							<li>
+								<label for="filebutton2">Attachment 2</label>
+								<input id="filebutton2" name="filebutton2" type="file" onChange="checkFile('filebutton2')"/>
+							</li>
+							<li>
+								<label for="filebutton3">Attachment 3</label>
+								<input id="filebutton3" name="filebutton3" type="file" onChange="checkFile('filebutton3')"/>
+							</li>
 							<li>
 								<label for="asignee">Assignee</label>
-								<input id="asignee" name="asignee" type="text"/>
+								<input id="asignee" name="asignee" type="text" onKeyUp="searchSuggest()"/>
+							</li>
+							<li id="layer1">
 							</li>
 							<li>
 								<label for="tag">Tag</label>
@@ -59,22 +77,15 @@
 							</li>							
 							<li>
 								<label for="deadline">Deadline</label>
-									<input id="demo1" type="text" size="25"/>
-									<a href="javascript:NewCal('demo1','ddmmyyyy')"><img src="image/cal.gif" alt="Pick a date"/></a>
+									<input id="demo1" name="deadline" type="text" size="25"/>
+									<a href="javascript:NewCssCal('demo1','yyyymmdd')"><img src="image/cal.gif" alt="Pick a date"/></a>
 							</li>
 							<li>
-								<button class="task" name="submitbutton" type="submit" onClick="checkSubmission(event)"><b>Submit</b></button>
+								<input type="text" name="kategori" class="hidden" value="<?php echo $kategori ?>"/>
+								<button class="task" name="submitbutton" type="submit"><b>Submit</b></button>
 							</li>
 						</ul>
 					</form>
-				</div>
-				<div id="wrapper-right">
-					<img id="suatu_gambar" src="Troll.png" alt="Gambar tidak dapat di-load"/>    
-					<video id="suatu_video" width="320" height="240" controls>
-						<source src="A_Caterpillar.mp4" type="video/mp4">
-						<source src="A_Caterpillar.ogg" type="video/ogg">
-						Your browser does not support the video tag.
-					</video>
 				</div>
 			</div>
 		</div>
@@ -84,69 +95,6 @@
 				Yulianti - Adriel - Amelia</p>			
 		</div>
     </div>
-	
-		<script type="text/javascript">
-		function loadAttachment()
-		{
-			var x = document.getElementById("filebutton").value;
-			var y = x.split(".");
-			var z = y[y.length-1];
-			if (z == "jpg" || z == "jpeg" || z == "png" || z == "gif")
-			{
-				document.getElementById("suatu_video").style.display = "none";
-				document.getElementById("suatu_gambar").style.display = "block";
-				
-			}
-			else if (z == "avi" || z == "mp4" || z == "mkv" || z == "3gp" || z == "flv" || z == "ogg")
-			{
-				document.getElementById("suatu_gambar").style.display = "none";
-				document.getElementById("suatu_video").style.display = "block";
-			}
-			else
-			{
-				document.getElementById("suatu_gambar").style.display = "none";
-				document.getElementById("suatu_video").style.display = "none";
-			}
-		}
-		function checkSubmission(e)
-		{
-			var isValid = true;
-			
-			var a = document.getElementById("tugas").value;
-			if (a.length != 0)
-			{
-				var index = 0;
-				while (index < a.length && isValid == true)
-				{
-					if ((a[index] >= '0' && a[index] <= '9') || (a[index] >= 'a' && a[index] <= 'z') || (a[index] >='A' && a[index] <='Z'))
-					{}
-					else
-					{
-						isValid = false;
-					}
-					index++;
-				}
-				
-				if (isValid == false)
-				{
-					alert("Nama tugas tidak boleh menggunakan karakter khusus!")
-				}
-			}
-			else
-			{
-				isValid = false;
-				alert("Nama tugas tidak boleh kosong!");
-			}
-			
-			if (isValid == true)
-			{
-				e.preventDefault();
-				alert("Tugas berhasil ditambahkan!");
-				window.location = "home.html";
-			}
-		}
-	</script>
-
 </body>
 
 </html>

@@ -1,5 +1,5 @@
-<?
-include '../connectDB.php';
+<?php
+include 'connectDB.php';
 class task{
 	var $name;
 	var $deadline;
