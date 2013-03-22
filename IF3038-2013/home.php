@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>	
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title> Banana Board - Home </title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="Dashboard.js" type="text/javascript" language="javascript"> </script>
@@ -31,7 +32,7 @@
 			
 			<div id="header">
 				<div id="logo">
-					<img src="logo.png"/>
+					<img src="image/logo.png"/>
 				</div>
 				<div id="menu">
 					<ul>
@@ -58,7 +59,7 @@
 						<li><a onClick="ShowTask('5','8')">Keamanan Informasi</a></li>
 						<li id="kategori"></li>
 					</ul>
-					<img src="leftmenu.png"/>
+					<img src="image/leftmenu.png"/>
 				</div>
 				
 				<div id="rightsidebar">
