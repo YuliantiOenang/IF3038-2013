@@ -328,7 +328,7 @@ height:30px;
 }
 
 #menu form input.box {
-background:url('searchbox.jpg') no-repeat;
+background:url('image/searchbox.jpg') no-repeat;
 width: 220px;
 height: 30px;
 border: 0;
@@ -671,7 +671,7 @@ font-family: 'Segoe UI';
 font-size: 18px;
 color: #351b02;
 margin: 0 20px 0 0;
-width: 200px;
+width: 595px;
 float: left;
 text-decoration: none;
 border-bottom-color: #fe9227;
