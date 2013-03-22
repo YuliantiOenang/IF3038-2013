@@ -89,21 +89,21 @@ color: #351b02;
 /*--------- index ---------*/
 #indexheader {
 width: 1200px;
-height: 175px;
+height: 125px;
 background-color: #351b02;
 margin:auto;
 padding: 0 0 0 0;
 }
 
 #indexheader img {
-width: 300px;
-height: 175px;
+width: 200px;
+height: 125px;
 float: left;
-margin-left: 100px;
+margin-left: 175px;
 background-color: #feff95;
 }
 
-#indexheader form{
+#loginform{
 float: right;
 margin-right: 50px;
 }
@@ -339,7 +339,7 @@ color: grey;
 }
 
 #menu form input.button {
-background:url('search_button.jpg') no-repeat;
+background:url('image/search_button.jpg') no-repeat;
 width: 80px;
 height: 30px;
 border: 0;
@@ -348,7 +348,7 @@ float: right;
 }
 
 #menu form input.button:hover {
-background:url('search_click.jpg') no-repeat;
+background:url('image/search_click.jpg') no-repeat;
 width: 80px;
 height: 30px;
 border: 0;
