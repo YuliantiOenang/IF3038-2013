@@ -4,13 +4,16 @@ function getXmlHttpRequest() {
 	if(window.XMLHttpRequest)
 		xmlHttpObj = new XMLHttpRequest();
 	else {
-		try
+		try {
 			xmlHttpObj = new ActiveXObject("Msxm12.XMLHTTP");
+		}
 		catch(e) {
-			try
+			try {
 				xmlHttpObj = new ActiveXObject("Microsoft.XMLHTTP");
-			catch(e)
+			}
+			catch(e) {
 				xmlHttpObj = false;
+			}
 		}
 	}
 	return xmlHttpObj;
@@ -45,23 +48,32 @@ function vdUsername(){
 	var temporary = document.getElementById('txUsername').value;
 	var temporary_password = document.getElementById('txPassword').value;
 	if(temporary.length >= 5 && temporary != temporary_password){
-		if(!xmlhttp)
+		window.xmlhttp = getXmlHttpRequest();
+		if(!window.xmlhttp)
 			return;
 		var username = encodeURIComponent(temporary);
 		var query = 'username=' + username;
-		xmlhttp.open('POST', 'validator.php', true);
-		xmlhttp.onreadystatechange = validateUser;
-		xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		xmlhttp.send(query);
+		window.xmlhttp.open('POST', 'validator.php', true);
+		window.xmlhttp.onreadystatechange = validateUser;
+		window.xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		window.xmlhttp.send(query);
 	} else {
-		document.getElementById('icoUsername').src="image/false.png";	
+		document.getElementById('icoUsername').src="image/false.png";
+		Validation();
 	}
-	Validation();
 }
 
-function validateUser {
-	document.getElementById('icoUsername').src="image/true.png";
-	Validation();
+function validateUser() {
+	if(window.xmlhttp.readyState == 4 && window.xmlhttp.status == 200) {
+		var response = window.xmlhttp.responseText;
+		if(response == 'free')
+			document.getElementById('icoUsername').src="image/true.png";
+		else {
+			document.getElementById('icoUsername').src="image/false.png";
+			alert('Username has been used');
+		}
+		Validation();
+	}
 }
 
 function vdPassword(){
@@ -103,12 +115,34 @@ function vdEmail(){
 	var temporary = document.getElementById('txEmail').value;
 	var temporary_password = document.getElementById('txPassword').value;
 	var pattern=/^([a-zA-Z0-9_.-])+@([a-zA-Z0-9])+\.([a-zA-Z])+([a-zA-Z])+/;
-    if(pattern.test(temporary) && temporary != temporary_password){         
-		document.getElementById('icoEmail').src="image/true.png";
-    }else{   
-		document.getElementById('icoEmail').src="image/false.png";
+    if(pattern.test(temporary) && temporary != temporary_password){
+		window.xmlhttp = getXmlHttpRequest();
+		if(!window.xmlhttp)
+			return;
+		var email = encodeURIComponent(temporary);
+		var query = 'email=' + email;
+		window.xmlhttp.open('POST', 'validator.php', true);
+		window.xmlhttp.onreadystatechange = validateEmail;
+		window.xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		window.xmlhttp.send(query);
     }
-	Validation();
+	else {   
+		document.getElementById('icoEmail').src="image/false.png";
+		Validation();
+	}
+}
+
+function validateEmail() {
+	if(window.xmlhttp.readyState == 4 && window.xmlhttp.status == 200) {
+		var response = window.xmlhttp.responseText;
+		if(response == 'free')
+			document.getElementById('icoEmail').src="image/true.png";
+		else {
+			document.getElementById('icoEmail').src="image/false.png";
+			alert('Email has been used');
+		}
+		Validation();
+	}
 }
 
 function vdAvatar(){
@@ -120,7 +154,7 @@ function vdAvatar(){
 		document.getElementById('icoAvatar').src="image/true.png";
     } else {
 		document.getElementById('icoAvatar').src="image/false.png";
-        alert("Upload jpg or jpeg Images only");       
+        alert('Upload a JPEG images only');       
     }
 	Validation();
 }
