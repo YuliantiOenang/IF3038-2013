@@ -4,6 +4,7 @@
 		<title> Banana Board - Home </title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src="Dashboard.js" type="text/javascript" language="javascript"> </script>
+		<script src="Raymond.js" type="text/javascript" language="javascript"> </script>	
 	</head>
 	<body>
 	
@@ -31,7 +32,7 @@
 			
 			<div id="header">
 				<div id="logo">
-					<img src="logo.png"/>
+					<img src="image/logo.png"/>
 				</div>
 				<div id="menu">
 					<ul>
@@ -39,7 +40,7 @@
 						<li> <a href="profile.php"> PROFILE </a> </li>
 						<li> <a href="index.php"> LOGOUT </a> </li>
 					</ul>
-					<form action="index.php">
+					<form method="post" action="searchResult.php">
 						<input class="button" type="submit" value="">
 						<select name="filter">
 							<option value="semua">Semua</option>
@@ -47,7 +48,7 @@
 							<option value="judul">Judul Kategori</option>
 							<option value="task">Task</option>
 						</select>
-						<input class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query">
+						<input name="keyword" class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query">
 						
 					</form>
 				</div>
@@ -64,7 +65,7 @@
 						<li><a onClick="ShowTask('5','8')">Keamanan Informasi</a></li>
 						<li id="kategori"></li>
 					</ul>
-					<img src="leftmenu.png"/>
+					<img src="image/leftmenu.png"/>
 				</div>
 				
 				<div id="rightsidebar">

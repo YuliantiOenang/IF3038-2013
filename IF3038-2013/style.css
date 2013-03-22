@@ -329,7 +329,7 @@ height:30px;
 
 #menu form input.box {
 background:url('image/searchbox.jpg') no-repeat;
-width: 220px;
+width: 150px;
 height: 30px;
 border: 0;
 padding-left: 10px;
@@ -625,7 +625,6 @@ border-bottom-style: solid;
 }
 
 .user {
-
 display: block;
 list-style: none;
 width: 880px;
@@ -992,4 +991,10 @@ background-color:blue;
 }
 .hidden{
 display:none;
+}
+#profPic{
+float:left;
+margin-right:10px;
+height:35px;
+width:35px;
 }

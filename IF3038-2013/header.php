@@ -7,31 +7,10 @@
 	</head>
 	<body>
 	
-		<div id="content">
-			<div id="popup">
-	       	</div>
-    	    <div id="popupform">
-        	    <form class="centerV">
-					<ul>
-						<li>
-							<label>Nama Kategori</label>
-							:<input id="namakategori" type="text" name="namakategori" id="namakategori"/><br/>
-						</li>
-						<li>
-							<label>Daftar Pengguna</label>
-							:<input type="text" name="daftarpengguna"id="daftarpengguna"/><br/>
-						</li>
-						<li>
-							<button id="add" onClick="AddKategori()"><b>Add</b></button>
-							<button id="cancel" onClick="DelPopUp()"><b>Cancel</b></button>
-						</li>						
-					</ul>
-				</form>
-            </div>
-			
+		<div id="content">	
 			<div id="header">
 				<div id="logo">
-					<img src="logo.png"/>
+					<img src="image/logo.png"/>
 				</div>
 				<div id="menu">
 					<ul>
@@ -41,6 +20,7 @@
 					</ul>
 					<form action="index.php">
 						<input class="button" type="submit" value="">
+						<img src="image/avatar.jpg" id="profPic"></img>
 						<select name="filter">
 							<option value="semua">Semua</option>
 							<option value="username">User Name</option>
@@ -52,3 +32,4 @@
 					</form>
 				</div>
 			</div>
+		</div>

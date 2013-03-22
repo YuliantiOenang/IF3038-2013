@@ -1,3 +1,8 @@
+<?php
+	if((isset($_POST['filter'])) && (isset($_POST['keyword'])) && !empty($_POST['keyword']) && $_POST['keyword'] != "Enter search query"){
+		$filter = $_POST['filter'];
+		$keyword = $_POST['keyword'];
+?>
 <!DOCTYPE html>
 <html>	
 	<head>
@@ -6,7 +11,7 @@
 		<script src="Dashboard.js" type="text/javascript" language="javascript"> </script>
 		<script src="Raymond.js" type="text/javascript" language="javascript"> </script>
 	</head>
-	<body>
+	<body onLoad="doSearch('<?php echo $filter;?>', '<?php echo $keyword;?>')">
 	
 		<div id="content">
 			<div id="popup">
@@ -40,7 +45,7 @@
 						<li> <a href="profile.php"> PROFILE </a> </li>
 						<li> <a href="index.php"> LOGOUT </a> </li>
 					</ul>
-					<form action="index.php">
+					<form method="post" action="searchResult.php">
 						<input class="button" type="submit" value="">
 						<select name="filter">
 							<option value="semua">Semua</option>
@@ -48,7 +53,8 @@
 							<option value="judul">Judul Kategori</option>
 							<option value="task">Task</option>
 						</select>
-						<input class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query">						
+						<input name="keyword" class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query">
+						
 					</form>
 				</div>
 			</div>
@@ -56,50 +62,15 @@
 			<div id="isi">
 				<div id="leftsidebar">
 					<ul>
-						<li><a onClick="">Tugas</a></li>
-						<li><a onClick="">Kategori</a></li>
-						<li><a onClick="">User</a></li>
+						<li><a onClick="doSearch('semua', '<?php echo document.getElementById('tugas').value;?>'); return false;">Tugas</a></li>
+						<li><a onClick="doSearch('judul', '<?php echo document.getElementById('kategori').value;?>'); return false;">Kategori</a></li>
+						<li><a onClick="doSearch('username', '<?php echo document.getElementById('user').value;?>'); return false;">User</a></li>
 					</ul>
 					<img src="leftmenu.png"/>
 				</div>
 				
 				<div id="rightsidebar1">
-					<ul class="user">
-						<li class="Task1">
-							<div>
-							<b class="design1">Daftar Tugas</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>tugas1</a>
-									<p>22/02/12</p>
-								</div>
-							</div>
-						</li>
-					</ul>
-					<ul class="user">
-						<li id="lala">
-							<div>
-							<b class="design1">Daftar User</b>
-							</div>
-							<div>
-								<div>
-									<p>tugas1</p>
-								</div>
-							</div>
-						</li>
-					</ul>
-					<ul class="user">
-						<li id="lala">
-							<div>
-							<b class="design1">Daftar Kategori</b>
-							</div>
-							<div>
-								<div>
-									<p>tugas1</p>
-								</div>
-							</div>
-						</li>
+					<ul class="user" id="searchAll">
 					</ul>
 				</div>
 			</div>
@@ -116,3 +87,8 @@
 			
 	</body>
 </html>
+<?php
+}else{
+		echo "Anauthorized Access!!";
+	}
+?>
