@@ -12,23 +12,45 @@
 	<div id="content">
     <?php
 	session_start();
-	if(isset ($_SESSION['flag']) && $_SESSION['flag']==1)
+	if(isset ($_SESSION['bananauser']))
+		{
+			if(isset($_GET['username'])==$_SESSION['bananauser'] || !isset($_GET['username']))
+			{
+				$username=$_SESSION['bananauser'];
+				$editable=true;
+			}
+			else if(isset($_GET['username'])!=$_SESSION['bananauser'])
+			{
+				$username=$_GET['username'];
+				$editable=false;
+			}
+			
+			if(isset ($_SESSION['flag']) && $_SESSION['flag']==1)
+			{
+				echo '<script type="text/javascript">'. 'notifikasi();'.'</script>';
+				
+			}
+			if(isset ($_SESSION['flagquery']) && $_SESSION['flagquery']==1)
+			{
+				echo '<script type="text/javascript">'. 'notifikasiquery();'.'</script>';
+				
+			}
+			else if(isset($_SESSION['flagquery'])){
+				
+				echo '<script type="text/javascript">'. 'notifikasiquery2();'.'</script>';
+			}
+			if(isset($_SESSION['flagquery']) && $_SESSION['flagquery']==0)
+			{
+				echo '<script type="text/javascript">'. 'notifikasigagalupload();'.'</script>';
+			}
+			unset($_SESSION['flag']);
+			unset($_SESSION['flagquery']);
+		}
+	else
 	{
-		echo '<script type="text/javascript">'. 'notifikasi();'.'</script>';
+		header('location:index.php');
 	}
-	if(isset ($_SESSION['flagquery']) && $_SESSION['flagquery']==1)
-	{
-		echo '<script type="text/javascript">'. 'notifikasiquery();'.'</script>';
-	}
-	else if(isset($_SESSION['flagquery'])){
-		
-		echo '<script type="text/javascript">'. 'notifikasiquery2();'.'</script>';
-	}
-	if(isset($_SESSION['flagquery']) && $_SESSION['flagquery']==0)
-	{
-		echo '<script type="text/javascript">'. 'notifikasigagalupload();'.'</script>';
-	}
-		session_destroy();
+	
 	?>
 		<div id="header">
 			<div id="logo">
@@ -48,12 +70,12 @@
 			</div>          
 		</div>
     
-		<!-- Foto profile -->
+			<!-- Foto profile -->
 		<div id="isi">
 			<div id="leftsidebar">
 				
-			<img id="leftsidebar" class="foto" src=<?$profile=new profile();echo $profile->avatar; ?> alt="Smiley face"/>
-			<b><?$profile=new profile();echo $profile->username;?></b>
+			<img id="leftsidebar" class="foto" src=<?$profile=new profile($username);echo $profile->avatar; ?> alt="Smiley face"/>
+			<b><?$profile=new profile($username);echo $profile->username;?></b>
 			</div>
 			
 			<div id="rightsidebar">
@@ -61,27 +83,32 @@
 					<h1 align="left">Profile</h1>
 					<li>
 						<label>Nama Lengkap:</label>
-						<p id="namalengkap" class="prof1"><?$profile=new profile();echo $profile->fullname;?></p>
+						<p id="namalengkap" class="prof1"><?$profile=new profile($username);echo $profile->fullname;?></p>
 					</li>
 					<li>
 						<label>Email:</label>
-						<p class="prof1"><?$profile=new profile();echo $profile->email;?></p>
+						<p class="prof1"><?$profile=new profile($username);echo $profile->email;?></p>
 					</li>
                     <li>
 						<label>Tanggal Lahir:</label>
-						<p class="prof1"><?$profile=new profile();echo $profile->birthday;?></p>
+						<p class="prof1"><?$profile=new profile($username);echo $profile->birthday;?></p>
 					</li>
 					<li>
 						<label>On going tasks:</label>
-						<p class="prof1"><?$profile=new profile();echo $profile->getTugasBelumSelesai();?></p>
+						<p class="prof1"><?$profile=new profile($username);echo $profile->getTugasBelumSelesai();?></p>
 					</li>
 					<li>
 						<label>Tasks done:</label>
-						<p class="prof1"><?$profile=new profile();echo $profile->getTugasSelesai();?></p>
+						<p class="prof1"><?$profile=new profile($username);echo $profile->getTugasSelesai();?></p>
 					</li>
-					<li>
-						<button class="reg" type="button" onclick="location.href='editprofile.php'"><b>Edit</b></button>
-					</li>
+					<?
+						if($editable==true)
+						{
+							print "<li>";
+							print "<button class=\"reg\" type=\"button\" onclick=\"location.href='editprofile.php'\"><b>Edit</b></button>";
+							print "</li>";
+						}
+					?>
 				</ul>
 			</div>
 		</div>
@@ -89,9 +116,10 @@
 		<div id="footer" class="home">
 			<p>&copy Copyright 2013. All rights reserved<br>
 			Chalkz Team<br>
-			Yulianti - Adriel - Amelia</p>			
-		</div>	
+			Yulianti - Raymond - Devin</p>			
+		</div>
+	
 	</div>
 	
-</body>
+ </body>
 </html>
