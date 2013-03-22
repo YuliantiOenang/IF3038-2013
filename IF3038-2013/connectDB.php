@@ -20,6 +20,10 @@ class DB{
         if(!mysql_query(sprintf( "use %s", $this->database, $this->link_id )))
             $this->halt( "cannot use database ".$this->database );
 	}
+	
+	function unconnectDB() {
+		mysql_close($this->link_id);
+	}
 		
 	function query( $Query_String ){
 		$this->connectDB();
@@ -32,7 +36,7 @@ class DB{
         return $this->Query_ID;
 		}
 		
-	 function halt( $msg ){
+	function halt( $msg ){
         printf( "<strong>Database error:</strong> %s n", $msg );
         printf( "<strong>MySQL Error</strong>: %s (%s) n", $this->Errno, $this->Error );
         die( "Session halted." );
@@ -41,8 +45,7 @@ class DB{
 //-------------------------------------------
 //   Mengambil hasil query yang memiliki banyak record
 //-------------------------------------------
- function nextRecord()
-        {
+	function nextRecord() {
         @ $this->Record = mysql_fetch_array( $this->Query_ID );
         $this->Row += 1;
         $this->Errno = mysql_errno();
@@ -54,16 +57,15 @@ class DB{
             $this->Query_ID = 0;
             }
         return $stat;
-        } // end function nextRecord
+    } // end function nextRecord
  
 //-------------------------------------------
 //   Mengambil hasil query yang memiliki satu record
 //-------------------------------------------
-    function singleRecord()
-        {
+    function singleRecord() {
         $this->Record = mysql_fetch_array( $this->Query_ID );
         $stat = is_array( $this->Record );
         return $stat;
-        } // end function singleRecord
+	} // end function singleRecord
 }
 ?>
