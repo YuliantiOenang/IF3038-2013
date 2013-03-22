@@ -37,7 +37,7 @@ class DB{
         printf( "<strong>MySQL Error</strong>: %s (%s) n", $this->Errno, $this->Error );
         die( "Session halted." );
     }
-}
+
 //-------------------------------------------
 //   Mengambil hasil query yang memiliki banyak record
 //-------------------------------------------
@@ -65,4 +65,5 @@ class DB{
         $stat = is_array( $this->Record );
         return $stat;
         } // end function singleRecord
+}
 ?>
