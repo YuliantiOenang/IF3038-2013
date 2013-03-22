@@ -170,12 +170,27 @@ function login() {
 	window.xmlhttp.send(query);
 }
 
+function loginPressed(keyCode) {
+	if(keyCode == 13) {
+		window.xmlhttp = getXmlHttpRequest();
+		if(!window.xmlhttp)
+			return;
+		var query = 'user=' + encodeURIComponent(document.getElementById('userheader').value) + '&pass=' + encodeURIComponent(document.getElementById('passheader').value);
+		window.xmlhttp.open('POST', 'login.php', true);
+		window.xmlhttp.onreadystatechange = canLogin;
+		window.xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		window.xmlhttp.send(query);
+	}
+}
+
 function canLogin() {
 	if(window.xmlhttp.readyState == 4 && window.xmlhttp.status == 200) {
 		var response = window.xmlhttp.responseText;
 		if(response == 'notsuccess')
 			alert('Username and password are not match.');
-		else {alert(response);
-			window.location.replace('home.php');}
+		else if(response == 'success')
+			window.location.replace('home.php');
+		else
+			window.location.replace('index.php');
 	}
 }

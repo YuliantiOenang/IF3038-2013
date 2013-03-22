@@ -22,11 +22,11 @@
 					<h1 align="left">Login</h1>
 					<li>
 						<label for="username">Username:</label>
-						<input class="loginbox" id="userheader" type="text" />
+						<input class="loginbox" id="userheader" type="text" onkeyup='loginPressed(event.keyCode)'/>
 					</li>
 					<li>
 						<label for="password">Password:</label>
-						<input class="loginbox" id="passheader" type="password" />
+						<input class="loginbox" id="passheader" type="password" onkeyup='loginPressed(event.keyCode)'/>
 					</li>
 					<li>
 						<button class="loginbutton" onclick='login()'><b>Login</b></button>
