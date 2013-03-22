@@ -26,14 +26,14 @@ if (isset($_POST['tugas'])){
 	$attachment2 = mysql_real_escape_string($_FILES['filebutton2']["name"]);
 	$insertPelampiran = "INSERT INTO pelampiran (`IDTugas`, `lampiran`) VALUES ({$db->Record[0]}, '{$attachment2}')";
 	$db->query($insertPelampiran);
-	move_uploaded_file($_FILES['filebutton1']["tmp_name"], "upload/" . $attachment2);
+	move_uploaded_file($_FILES['filebutton2']["tmp_name"], "upload/" . $attachment2);
 	}
 	
 	if (isset($_FILES['filebutton3'])){
 	$attachment3 = mysql_real_escape_string($_FILES['filebutton3']["name"]);
 	$insertPelampiran = "INSERT INTO pelampiran (`IDTugas`, `lampiran`) VALUES ({$db->Record[0]}, '{$attachment3}')";
 	$db->query($insertPelampiran);
-	move_uploaded_file($_FILES['filebutton1']["tmp_name"], "upload/" . $attachment3);
+	move_uploaded_file($_FILES['filebutton3']["tmp_name"], "upload/" . $attachment3);
 	}
 	
 	

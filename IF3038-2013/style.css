@@ -518,7 +518,7 @@ cursor: pointer;
 .addcateg:hover{
 color: #fe9227;
 }
-#rightsidebar, #rightsidebar1 {
+#rightsidebar, #rightsidebar1  {
 width: 900px;
 float: left;
 margin-top:18px;
@@ -527,14 +527,14 @@ padding-top: 30px;
 padding-bottom: 30px;
 }
 
-#kegiatan, #user {
+#kegiatan {
 display: block;
 list-style: none;
 width: 880px;
 margin: 0 0 18px 10px;
 padding: 0;
 }
-#kegiatan li, #user li {
+#kegiatan li {
 float: left;
 width: 400px;
 margin: 30px 20px 12px;
@@ -542,7 +542,7 @@ text-align: left;
 list-style:none;
 display: block;
 }
-#kegiatan b.design1, #user b.design1  {
+#kegiatan b.design1 {
 color: #351b02;
 display: block;
 padding: 12px;
@@ -552,7 +552,7 @@ background-color: #fe9227;
 margin: 0;
 width: 350px;
 }
-#kegiatan b.design2 a, #user b.design2 a{
+#kegiatan b.design2 a{
 color: #351b02;
 display: block;
 padding: 6px 10px 7px 0;
@@ -563,7 +563,7 @@ margin: 0;
 float: right;
 text-decoration: none;
 }
-#kegiatan a.list, #user a.list  {
+#kegiatan a.list {
 background-color: #feff95;
 display: block;
 padding: 12px;
@@ -578,11 +578,11 @@ border-bottom-color: #fe9227;
 border-bottom-width: 1px;
 border-bottom-style: solid;
 }
-#kegiatan input, #user input{
+#kegiatan input{
 margin: 20px 20px 0 20px;
 float: left;
 }
-#kegiatan p, #user p{
+#kegiatan p{
 color: #351b02;
 background-color: #feff95;
 padding: 12px;
@@ -594,20 +594,20 @@ border-bottom-width: 1px;
 border-bottom-style: solid;
 }
 
-#kegiatan a, #kegiatan a:visited, #user a, #user a:visited
+#kegiatan a, #kegiatan a:visited
 {
 	position:relative;
 	z-index: 0;
 }
 
-#kegiatan a span, #user a span
+#kegiatan a span
 {
 	display: none;
 	z-index: 0;
 	
 }
 
-#kegiatan a:hover span, #user a:hover span
+#kegiatan a:hover span
 {
 	display: block;
 	position: absolute;
@@ -981,7 +981,6 @@ cursor:pointer;
 background: purple;
 }
 .suggestBox{
-visibility:block;
 position:float;
 max-width:150;
 z-index:1;
@@ -989,7 +988,7 @@ padding:5px;
 border: 1px solid #000000;
 overflow:auto;
 max-height:15;
-background-color:blue;);
+background-color:blue;
 }
 .hidden{
 display:none;
