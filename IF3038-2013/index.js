@@ -150,7 +150,7 @@ function vdAvatar(){
     var fileName = fup.value;
     var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
 	ext = ext.toLowerCase();
-    if(ext == "jpeg" || ext == "jpg"){
+    if(ext == "jpeg" || ext == "jpg" || fup == ''){
 		document.getElementById('icoAvatar').src="image/true.png";
     } else {
 		document.getElementById('icoAvatar').src="image/false.png";

@@ -78,7 +78,7 @@
 					<li>
 						<label for="avatar">Avatar:</label>
 						<input type="file" name='avatar' id="avatar" onchange='vdAvatar()'/> &nbsp;&nbsp;&nbsp;
-						<img src="Image/false.png" id="icoAvatar" alt="Not Accepted" /><br />
+						<img src="Image/true.png" id="icoAvatar" alt="Accepted" /><br />
 						<span>* Hanya menerima berkas berekstensi .jpg atau .jpeg</span>
 					</li>
 					<li>
