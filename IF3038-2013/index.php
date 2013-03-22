@@ -39,29 +39,29 @@
 		<div id="register">			
 			<form class="reg" action="" method="post" name="registerform">
 				<ul>
-					<p><b>new to Banana Board?</b></p>
+					<p><b>NEW TO BANANA BOARD?</b></p>
 					<h1 align="left">Register now!</h1>
 					<li>
 						<label for="username">Username:</label>
-						<input type="text" id="txUsername" onkeyup="vdUsername()"/>
+						<input type="text" id="txUsername" onkeyup="vdUsername()" oninput="vdUsername()" onpaste="vdUsername()"/>
 						<img src="Image/false.png" id="icoUsername" alt="Not Accepted" /><br />
 						<span>* Minimal 5 karakter</span>
 					</li>
 					<li>
 						<label for="password">Password:</label>
-						<input type="password" id="txPassword" onkeyup="vdPassword()"/>
+						<input type="password" id="txPassword" onkeyup="vdPassword()" oninput="vdPassword()" onpaste="vdPassword()"/>
 						<img src="Image/false.png" id="icoPassword" alt="Not Accepted" /><br />
 						<span>* Minimal 8 karakter, tidak boleh sama dengan username maupun email</span>
 					</li>		
 					<li>
 						<label for="confirmpass">Confirmed Password:</label>
-						<input type="password" id="txConfirmPassword" onkeyup="vdConfirmPassword()"/>
+						<input type="password" id="txConfirmPassword" onkeyup="vdConfirmPassword()" oninput="vdConfirmPassword()" onpaste="vdConfirmPassword()"/>
 						<img src="Image/false.png" id="icoConfirmPassword" alt="Not Accepted" /><br />
 						<span>* Harus sama dengan password</span>
 					</li>
 					<li>
 						<label for="namalengkap">Nama Lengkap:</label>
-						<input type="text" id="txName" onkeyup="vdName()" />
+						<input type="text" id="txName" onkeyup="vdName()" oninput="vdName()" onpaste="vdName()"/>
 						<img src="Image/false.png" id="icoName" alt="Not Accepted" /><br />
 						<span>* Minimal 2 kata (nama depan dan nama belakang)</span>
 					</li>	
@@ -72,7 +72,7 @@
 					</li>
 					<li>
 						<label for="email">Email:</label>
-						<input type="text" id="txEmail" required onkeyup="vdEmail()"/>
+						<input type="text" id="txEmail" required onkeyup="vdEmail()" oninput="vdEmail()" onpaste="vdEmail()"/>
 						<img src="Image/false.png" id="icoEmail" alt="Not Accepted" /><br />
 						<span>* Sesuai dengan format alamat surel (x@x.xx)</span>
 					</li>
@@ -103,7 +103,7 @@
 		<div id="footer">
 			<p>&copy Copyright 2013. All rights reserved<br>
 			Chalkz Team<br>
-			Yulianti - Adriel - Amelia</p>			
+			Yulianti - Raymond - Devin</p>			
 		</div>
 	</body>
 </html>
