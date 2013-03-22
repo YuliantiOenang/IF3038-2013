@@ -89,17 +89,17 @@ color: #351b02;
 /*--------- index ---------*/
 #indexheader {
 width: 1200px;
-height: 120px;
+height: 175px;
 background-color: #351b02;
 margin:auto;
 padding: 0 0 0 0;
 }
 
 #indexheader img {
-width: 200px;
-height: 120px;
+width: 300px;
+height: 175px;
 float: left;
-margin-left: 150px;
+margin-left: 100px;
 background-color: #feff95;
 }
 
@@ -141,7 +141,7 @@ font-family: 'segoe ui';
 font-size: 15px;
 height: 35px;
 }
-.loginbutton:hover{
+.loginbutton:active{
 background-color: #fbdb00;
 color: black;
 }
@@ -153,12 +153,12 @@ border-radius: 5px;
 }
 
 #register{
-height: 700px;
 width: 1200px;
 background-color: #feff95;
 margin: auto;
 margin-bottom:0;
 padding-bottom: 0;
+overflow: hidden;
 }
 
 .reg ul {
@@ -198,7 +198,7 @@ padding: 5px 8px;
 border-radius: 5px;
 }
 
-.reg button{
+.reg button {
 margin-left: 156px;
 height: 30px;
 border-radius: 5px;
@@ -208,7 +208,7 @@ color: white;
 font-family: 'segoe ui';
 font-size: 15px;
 }
-.reg button:hover{
+.reg button:hover:enabled  {
 background-color: #fcff00;
 color: #351b02;
 
@@ -518,7 +518,7 @@ cursor: pointer;
 .addcateg:hover{
 color: #fe9227;
 }
-#rightsidebar, #rightsidebar1  {
+#rightsidebar, #rightsidebar1 {
 width: 900px;
 float: left;
 margin-top:18px;
@@ -527,14 +527,14 @@ padding-top: 30px;
 padding-bottom: 30px;
 }
 
-#kegiatan {
+#kegiatan, #user {
 display: block;
 list-style: none;
 width: 880px;
 margin: 0 0 18px 10px;
 padding: 0;
 }
-#kegiatan li {
+#kegiatan li, #user li {
 float: left;
 width: 400px;
 margin: 30px 20px 12px;
@@ -542,7 +542,7 @@ text-align: left;
 list-style:none;
 display: block;
 }
-#kegiatan b.design1 {
+#kegiatan b.design1, #user b.design1  {
 color: #351b02;
 display: block;
 padding: 12px;
@@ -552,7 +552,7 @@ background-color: #fe9227;
 margin: 0;
 width: 350px;
 }
-#kegiatan b.design2 a{
+#kegiatan b.design2 a, #user b.design2 a{
 color: #351b02;
 display: block;
 padding: 6px 10px 7px 0;
@@ -563,7 +563,7 @@ margin: 0;
 float: right;
 text-decoration: none;
 }
-#kegiatan a.list {
+#kegiatan a.list, #user a.list  {
 background-color: #feff95;
 display: block;
 padding: 12px;
@@ -578,11 +578,11 @@ border-bottom-color: #fe9227;
 border-bottom-width: 1px;
 border-bottom-style: solid;
 }
-#kegiatan input{
+#kegiatan input, #user input{
 margin: 20px 20px 0 20px;
 float: left;
 }
-#kegiatan p{
+#kegiatan p, #user p{
 color: #351b02;
 background-color: #feff95;
 padding: 12px;
@@ -594,20 +594,20 @@ border-bottom-width: 1px;
 border-bottom-style: solid;
 }
 
-#kegiatan a, #kegiatan a:visited
+#kegiatan a, #kegiatan a:visited, #user a, #user a:visited
 {
 	position:relative;
 	z-index: 0;
 }
 
-#kegiatan a span
+#kegiatan a span, #user a span
 {
 	display: none;
 	z-index: 0;
 	
 }
 
-#kegiatan a:hover span
+#kegiatan a:hover span, #user a:hover span
 {
 	display: block;
 	position: absolute;
