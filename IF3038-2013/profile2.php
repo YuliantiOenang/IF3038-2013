@@ -1,5 +1,5 @@
 <?
-include '../connectDB.php';
+include 'connectDB.php';
 	class profile{
 	var $username;
 	var $fullname;
@@ -65,15 +65,7 @@ include '../connectDB.php';
 		$array= explode("/", $picavatar);
 		
 		$picavatar=$array[1];
-		$target_path = "image/";
-
-		$target_path = $target_path . basename( $_FILES['avatar']['name']); 
-
-		if(move_uploaded_file($_FILES['avatar']['tmp_name'], $target_path)) {
-		    $_SESSION['uploadsukses']=1;
-		} else{
-		    $_SESSION['uploadsukses']=0;
-		}
+		
 		if($profile->fullname==$namalengkap && $profile->birthday==$birthday && $profile->password==$password && ($picavatar==$avatar || $avatar=="") )
 		{
 			$_SESSION['flag']=1;
@@ -84,8 +76,26 @@ include '../connectDB.php';
 			$profile->fullname=$namalengkap;
 			$profile->birthday=$birthday;
 			$profile->password=$password;
-			$profile->avatar="image/".$avatar;
-			$query="UPDATE pengguna SET fullname='$namalengkap',birthday='$birthday', password='$password', avatar='$profile->avatar' WHERE username='yulianti'";
+			if($avatar=="")
+			{
+				$query="UPDATE pengguna SET fullname='$namalengkap',birthday='$birthday', password='$password' WHERE username='yulianti'";
+			}
+			else
+			{
+				$target_path = "avatar/";
+
+				$target_path = $target_path . basename( $_FILES['avatar']['name']); 
+
+				if(move_uploaded_file($_FILES['avatar']['tmp_name'], $target_path)) {
+					$_SESSION['uploadsukses']=1;
+				} else{
+					$_SESSION['uploadsukses']=0;
+				}
+				$profile->avatar="avatar/".$avatar;
+				$query="UPDATE pengguna SET fullname='$namalengkap',birthday='$birthday', password='$password', avatar='$profile->avatar' WHERE username='yulianti'";
+			}
+			
+			
 			$hasil=mysql_query($query);
 			
 			if($hasil)

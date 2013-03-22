@@ -13,7 +13,7 @@
 		<div id="header">
 			<div id="logo">
 				<a href="home.php" class="header">
-				<img src="logo.png"/></a>
+				<img src="image/logo.png"/></a>
 			</div>
 			<div id="menu">
 				<ul>
