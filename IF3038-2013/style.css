@@ -718,7 +718,7 @@ border-bottom-style: solid;
 	position: absolute;
 	top: 0px;
 	left: 120px;
-	width: 160px;
+	width: auto;
 	margin: 0px;
 	padding: 10px;
 	color: #335500;
