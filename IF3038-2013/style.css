@@ -339,7 +339,7 @@ color: grey;
 }
 
 #menu form input.button {
-background:url('search_button.jpg') no-repeat;
+background:url('image/search_button.jpg') no-repeat;
 width: 80px;
 height: 30px;
 border: 0;
@@ -348,7 +348,7 @@ float: right;
 }
 
 #menu form input.button:hover {
-background:url('search_click.jpg') no-repeat;
+background:url('image/search_click.jpg') no-repeat;
 width: 80px;
 height: 30px;
 border: 0;
