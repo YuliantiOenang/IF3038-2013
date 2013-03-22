@@ -17,39 +17,38 @@
 	<body onload='initindex()'>
 		<div id="indexheader">
 			<img src="image/logo.png">					
-			<form id="loginform" class="login" action="loginsubmitter.php" method="post">		
+			<div id="loginform" class="login">		
 				<ul>
 					<h1 align="left">Login</h1>
 					<li>
 						<label for="username">Username:</label>
-						<input class="loginbox" id="userheader" type="text" />
+						<input class="loginbox" id="userheader" type="text" onkeyup='loginPressed(event.keyCode)'/>
 					</li>
 					<li>
 						<label for="password">Password:</label>
-						<input class="loginbox" id="password" type="password" />
+						<input class="loginbox" id="passheader" type="password" onkeyup='loginPressed(event.keyCode)'/>
 					</li>
 					<li>
-						<button class="loginbutton" type="submit"><b>Login</b></button>
+						<button class="loginbutton" onclick='login()'><b>Login</b></button>
 					</li>
-					<li id='incorrect'></li>
 				</ul>
-			</form>	
+			</div>	
 		</div>		
 		
 		<div id="register">			
-			<form class="reg" action="" method="post" name="registerform">
+			<form class="reg" action='register.php' method="post" name="registerform" enctype="multipart/form-data">
 				<ul>
 					<p><b>NEW TO BANANA BOARD?</b></p>
 					<h1 align="left">Register now!</h1>
 					<li>
 						<label for="username">Username:</label>
-						<input type="text" id="txUsername" onkeyup="vdUsername()" oninput="vdUsername()" onpaste="vdUsername()"/>
+						<input type="text" name='username' id="txUsername" onkeyup="vdUsername()" oninput="vdUsername()" onpaste="vdUsername()"/>
 						<img src="Image/false.png" id="icoUsername" alt="Not Accepted" /><br />
 						<span>* Minimal 5 karakter</span>
 					</li>
 					<li>
 						<label for="password">Password:</label>
-						<input type="password" id="txPassword" onkeyup="vdPassword()" oninput="vdPassword()" onpaste="vdPassword()"/>
+						<input type="password" name='pass' id="txPassword" onkeyup="vdPassword()" oninput="vdPassword()" onpaste="vdPassword()"/>
 						<img src="Image/false.png" id="icoPassword" alt="Not Accepted" /><br />
 						<span>* Minimal 8 karakter, tidak boleh sama dengan username maupun email</span>
 					</li>		
@@ -61,30 +60,31 @@
 					</li>
 					<li>
 						<label for="namalengkap">Nama Lengkap:</label>
-						<input type="text" id="txName" onkeyup="vdName()" oninput="vdName()" onpaste="vdName()"/>
+						<input type="text" name='name' id="txName" onkeyup="vdName()" oninput="vdName()" onpaste="vdName()"/>
 						<img src="Image/false.png" id="icoName" alt="Not Accepted" /><br />
 						<span>* Minimal 2 kata (nama depan dan nama belakang)</span>
 					</li>	
 					<li>
 						<label for="tgllahir">Tanggal Lahir:</label>
-						<input id="tgllahir" type="text" size="25"/ readonly>
+						<input id="tgllahir" name='birth' type="text" size="25"/ readonly>
 						<a href="javascript:NewCal('tgllahir','ddmmyyyy')"><img src="image/cal.gif" alt="Pick a date"/></a>
 					</li>
 					<li>
 						<label for="email">Email:</label>
-						<input type="text" id="txEmail" required onkeyup="vdEmail()" oninput="vdEmail()" onpaste="vdEmail()"/>
+						<input type="text" name='email' id="txEmail" required onkeyup="vdEmail()" oninput="vdEmail()" onpaste="vdEmail()"/>
 						<img src="Image/false.png" id="icoEmail" alt="Not Accepted" /><br />
 						<span>* Sesuai dengan format alamat surel (x@x.xx)</span>
 					</li>
 					<li>
 						<label for="avatar">Avatar:</label>
-						<input type="file" id="filename" onchange='vdAvatar()'> &nbsp;&nbsp;&nbsp;
-						<img src="Image/false.png" id="icoAvatar" alt="Not Accepted" /><br />
+						<input type="file" name='avatar' id="avatar" onchange='vdAvatar()'/> &nbsp;&nbsp;&nbsp;
+						<img src="Image/true.png" id="icoAvatar" alt="Accepted" /><br />
 						<span>* Hanya menerima berkas berekstensi .jpg atau .jpeg</span>
 					</li>
 					<li>
 						<button type="submit" id="registerbutton">Register</button>
 					</li>
+					<li id='registermessage'></li>
 				</ul>
 			</form>
 		</div>

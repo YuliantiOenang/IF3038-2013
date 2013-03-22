@@ -1,5 +1,5 @@
 <?
-include '../connectDB.php';
+include 'connectDB.php';
 	class profile{
 	var $username;
 	var $fullname;
@@ -9,10 +9,10 @@ include '../connectDB.php';
 	var $tugasSelesai;
 	var $tugasBelumSelesai;
 	var $password;
-	function __construct(){
+	function __construct($username){
 		$db=new DB();
 		$db->connectDB();
-		$hasil=$db->query('select * from pengguna where username=\'yulianti\'');
+		$hasil=$db->query('select * from pengguna where username=\''.$username.'\'');
 		$array = mysql_fetch_assoc($hasil);
 		$this->username=$array['username'];
 		$this->fullname=$array['fullname'];
@@ -20,9 +20,9 @@ include '../connectDB.php';
 		$this->birthday=$array['birthday'];
 		$this->avatar=$array['avatar'];
 		$this->password=$array['password'];
-		$hasil=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\'yulianti\' and status=1');
+		$hasil=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\''.$username.'\' and status=1');
 		$this->tugasSelesai=$hasil;
-		$hasil2=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\'yulianti\' and status=0');
+		$hasil2=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\''.$username.'\' and status=0');
 		$this->tugasBelumSelesai=$hasil2;
 		
 	}
@@ -52,29 +52,24 @@ include '../connectDB.php';
 		
 	}*/
 	}
-		
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		session_start();
-		$profile=new profile();
+		$currentuser=$_SESSION['bananauser'];
+		$profile=new profile($currentuser);
 		$namalengkap=$_POST['namalengkap'];
 		$birthday=$_POST['birthday'];
 		$password=$_POST['password'];
 		$confirmedpass=$_POST['confirmedpass'];		
 		$avatar=$_FILES['avatar']['name'];
 		$picavatar=$profile->avatar;
-		$array= explode("/", $picavatar);
-		
+		$array= explode("/", $picavatar);		
 		$picavatar=$array[1];
-		$target_path = "image/";
-
-		$target_path = $target_path . basename( $_FILES['avatar']['name']); 
-
-		if(move_uploaded_file($_FILES['avatar']['tmp_name'], $target_path)) {
-		    $_SESSION['uploadsukses']=1;
-		} else{
-		    $_SESSION['uploadsukses']=0;
-		}
-		if($profile->fullname==$namalengkap && $profile->birthday==$birthday && $profile->password==$password && ($picavatar==$avatar || $avatar=="") )
+		echo $namalengkap;
+		echo $birthday;
+		echo $password;
+		echo $confirmedpass;
+		echo $avatar;
+		if($profile->fullname==$namalengkap && $profile->birthday==$birthday && $profile->password==$password && ($picavatar==$avatar || $avatar==""))
 		{
 			$_SESSION['flag']=1;
 		}
@@ -84,8 +79,25 @@ include '../connectDB.php';
 			$profile->fullname=$namalengkap;
 			$profile->birthday=$birthday;
 			$profile->password=$password;
-			$profile->avatar="image/".$avatar;
-			$query="UPDATE pengguna SET fullname='$namalengkap',birthday='$birthday', password='$password', avatar='$profile->avatar' WHERE username='yulianti'";
+			if($avatar=="")
+			{
+				$query="UPDATE pengguna SET fullname='$namalengkap',birthday='$birthday', password='$password' WHERE username='$currentuser'";
+			}
+			else
+			{
+				$target_path = "avatar/";
+
+				$target_path = $target_path . basename( $_FILES['avatar']['name']); 
+
+				if(move_uploaded_file($_FILES['avatar']['tmp_name'], $target_path)) {
+					$_SESSION['uploadsukses']=1;
+				} else{
+					$_SESSION['uploadsukses']=0;
+				}
+				$profile->avatar="avatar/".$avatar;
+				$query="UPDATE pengguna SET fullname='$namalengkap',birthday='$birthday', password='$password', avatar='$profile->avatar' WHERE username='$currentuser'";
+			}
+		
 			$hasil=mysql_query($query);
 			
 			if($hasil)
@@ -99,7 +111,6 @@ include '../connectDB.php';
 		}
 		
 		header('location:profile.php');
-		session_destroy();
 	}
 		
 	

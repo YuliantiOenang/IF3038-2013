@@ -146,15 +146,51 @@ function validateEmail() {
 }
 
 function vdAvatar(){
-	var fup = document.getElementById('filename');
+	var fup = document.getElementById('avatar');
     var fileName = fup.value;
     var ext = fileName.substring(fileName.lastIndexOf('.') + 1);
 	ext = ext.toLowerCase();
-    if(ext == "jpeg" || ext == "jpg"){
+    if(ext == "jpeg" || ext == "jpg" || fup == ''){
 		document.getElementById('icoAvatar').src="image/true.png";
     } else {
 		document.getElementById('icoAvatar').src="image/false.png";
         alert('Upload a JPEG images only');       
     }
 	Validation();
+}
+
+function login() {
+	window.xmlhttp = getXmlHttpRequest();
+	if(!window.xmlhttp)
+		return;
+	var query = 'user=' + encodeURIComponent(document.getElementById('userheader').value) + '&pass=' + encodeURIComponent(document.getElementById('passheader').value);
+	window.xmlhttp.open('POST', 'login.php', true);
+	window.xmlhttp.onreadystatechange = canLogin;
+	window.xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	window.xmlhttp.send(query);
+}
+
+function loginPressed(keyCode) {
+	if(keyCode == 13) {
+		window.xmlhttp = getXmlHttpRequest();
+		if(!window.xmlhttp)
+			return;
+		var query = 'user=' + encodeURIComponent(document.getElementById('userheader').value) + '&pass=' + encodeURIComponent(document.getElementById('passheader').value);
+		window.xmlhttp.open('POST', 'login.php', true);
+		window.xmlhttp.onreadystatechange = canLogin;
+		window.xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		window.xmlhttp.send(query);
+	}
+}
+
+function canLogin() {
+	if(window.xmlhttp.readyState == 4 && window.xmlhttp.status == 200) {
+		var response = window.xmlhttp.responseText;
+		if(response == 'notsuccess')
+			alert('Username and password are not match.');
+		else if(response == 'success')
+			window.location.replace('home.php');
+		else
+			window.location.replace('index.php');
+	}
 }
