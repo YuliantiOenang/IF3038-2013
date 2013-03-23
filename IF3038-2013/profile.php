@@ -104,8 +104,8 @@
 		<div id="isi">
 			<div id="leftsidebar">
 				
-			<img id="leftsidebar" class="foto" src=<?php$profile=new profile($username);echo $profile->avatar; ?> alt="Smiley face"/>
-			<b><?php$profile=new profile($username);echo $profile->username;?></b>
+			<img id="leftsidebar" class="foto" src=<?php $profile=new profile($username);echo $profile->avatar; ?> alt="Smiley face"/>
+			<b><?php $profile=new profile($username);echo $profile->username;?></b>
 			</div>
 			
 			<div id="rightsidebar">
@@ -113,23 +113,23 @@
 					<h1 align="left">Profile</h1>
 					<li>
 						<label>Nama Lengkap:</label>
-						<p id="namalengkap" class="prof1"><?php$profile=new profile($username);echo $profile->fullname;?></p>
+						<p id="namalengkap" class="prof1"><?php $profile=new profile($username);echo $profile->fullname;?></p>
 					</li>
 					<li>
 						<label>Email:</label>
-						<p class="prof1"><?php$profile=new profile($username);echo $profile->email;?></p>
+						<p class="prof1"><?php $profile=new profile($username);echo $profile->email;?></p>
 					</li>
                     <li>
 						<label>Tanggal Lahir:</label>
-						<p class="prof1"><?php$profile=new profile($username);echo $profile->birthday;?></p>
+						<p class="prof1"><?php $profile=new profile($username);echo $profile->birthday;?></p>
 					</li>
 					<li>
 						<label>On going tasks:</label>
-						<p class="prof1"><?php$profile=new profile($username);echo $profile->getTugasBelumSelesai();?></p>
+						<p class="prof1"><?php $profile=new profile($username);echo $profile->getTugasBelumSelesai();?></p>
 					</li>
 					<li>
 						<label>Tasks done:</label>
-						<p class="prof1"><?php$profile=new profile($username);echo $profile->getTugasSelesai();?></p>
+						<p class="prof1"><?php $profile=new profile($username);echo $profile->getTugasSelesai();?></p>
 					</li>
 					<?php
 						if($editable==true)
