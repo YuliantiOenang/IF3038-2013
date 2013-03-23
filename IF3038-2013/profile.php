@@ -14,7 +14,6 @@
 	<div id="content">
     <?php
 	session_start();
-	$_SESSION['bananauser']='yuli';
 	if(isset ($_SESSION['bananauser']))
 		{
 			if(!isset($_GET['username']))
@@ -85,7 +84,7 @@
 						<li> <a href="logout.php"> LOGOUT </a> </li>
 					</ul>
 					<form method="post" action="searchResult.php">
-						<input class="button" type="submit" value="">
+						
 						<img src="image/avatar.jpg" id="profPic"></img>
 						<select name="filter">
 							<option value="semua">Semua</option>
@@ -94,7 +93,7 @@
 							<option value="task">Task</option>
 						</select>
 						<input name="keyword" id="keyword" class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query" onKeyUp="searchSuggestKeyword()">
-						
+						<input id="searchbutton" type="submit" value="">
 					</form>
 					<div id="layer"></div>
 				</div>

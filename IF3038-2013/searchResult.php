@@ -27,7 +27,7 @@ require_once('header.php');
 </html>
 <?php
 }else{
-		echo "Anauthorized Access!!";
+		//echo "Anauthorized Access!!";
 	}
 ?>
 
