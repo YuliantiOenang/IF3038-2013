@@ -29,11 +29,8 @@ if((isset($_GET['filter'])) && (isset($_GET['keyword'])) && $_GET['keyword'] != 
 						$display .= "checked";
 					$display .= "/>";
 				}
-<<<<<<< HEAD
 				$display .= "<a class='list' href='taskdetails.php?id={$db->Record['IDTask']}'><span>Tag: {$db->Record['tag']}</span>{$db->Record['name']}</a>";
-=======
-				$display .= "<a class='list' href='taskdetails.php?id='{$db->Record['IDTask']}'><span>Tag: {$db->Record['tag']}</span>{$db->Record['name']}</a>";
->>>>>>> 6b7a0505198d6111f3c8839bedde75b5851d6f6d
+
 				$display .=	"<p>{$db->Record['deadline']}</p>";
 				$display .=	"</div>";
 			}
@@ -62,7 +59,7 @@ if((isset($_GET['filter'])) && (isset($_GET['keyword'])) && $_GET['keyword'] != 
 			$display .=	"</div>";
 			while($db->nextRecord()){
 				$display .=	"<div>";
-				$display .=	"<p>{$db->Record['username']}</p>";
+				$display .=	"<p><a class='list' href='profile.php?username={$db->Record['username']}'>{$db->Record['username']}</a></p>";
 				$display .=	"</div>";
 			}
 				$display .=	"</li>";
