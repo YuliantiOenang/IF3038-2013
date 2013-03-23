@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.9
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Waktu pembuatan: 23. Maret 2013 jam 02:52
--- Versi Server: 5.5.8
--- Versi PHP: 5.3.5
+-- Host: 127.0.0.1
+-- Generation Time: Mar 23, 2013 at 03:51 AM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -22,7 +23,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori`
+-- Table structure for table `kategori`
 --
 
 CREATE TABLE IF NOT EXISTS `kategori` (
@@ -31,17 +32,22 @@ CREATE TABLE IF NOT EXISTS `kategori` (
   `username` varchar(30) NOT NULL,
   PRIMARY KEY (`IDKategori`),
   KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data untuk tabel `kategori`
+-- Dumping data for table `kategori`
 --
 
+INSERT INTO `kategori` (`IDKategori`, `judul`, `username`) VALUES
+(1, 'apapun', 'doraemon'),
+(2, 'kalkulus', 'devin'),
+(3, 'kamu', 'raymond'),
+(4, 'putih', 'yuli');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `komentar`
+-- Table structure for table `komentar`
 --
 
 CREATE TABLE IF NOT EXISTS `komentar` (
@@ -54,32 +60,29 @@ CREATE TABLE IF NOT EXISTS `komentar` (
   KEY `IDTask` (`IDTask`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data untuk tabel `komentar`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pelampiran`
+-- Table structure for table `pelampiran`
 --
 
 CREATE TABLE IF NOT EXISTS `pelampiran` (
   `IDTugas` int(3) NOT NULL AUTO_INCREMENT,
   `lampiran` varchar(256) NOT NULL,
   KEY `IDTugas` (`IDTugas`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data untuk tabel `pelampiran`
+-- Dumping data for table `pelampiran`
 --
 
+INSERT INTO `pelampiran` (`IDTugas`, `lampiran`) VALUES
+(2, 'datetimepicker_css.js');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengguna`
+-- Table structure for table `pengguna`
 --
 
 CREATE TABLE IF NOT EXISTS `pengguna` (
@@ -94,14 +97,19 @@ CREATE TABLE IF NOT EXISTS `pengguna` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `pengguna`
+-- Dumping data for table `pengguna`
 --
 
+INSERT INTO `pengguna` (`username`, `password`, `fullname`, `birthday`, `email`, `avatar`) VALUES
+('devin', 'devin', 'devin hoesen', '2013-03-11', 'devin@hotmail.com', 'avatar/0.jpg'),
+('doraemon', 'doraemon', 'doraemon', '2013-03-19', 'doraemon@dorem.com', 'avatar/0.jpg'),
+('raymond', 'raymond', 'raymond lukanta', '2013-03-10', 'raymond@hotmail.com', 'avatar/0.jpg'),
+('yuli', 'yuli', 'yulianti oenang', '2013-03-19', 'yuli@hotmail.com', 'avatar/0.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penugasan`
+-- Table structure for table `penugasan`
 --
 
 CREATE TABLE IF NOT EXISTS `penugasan` (
@@ -109,17 +117,19 @@ CREATE TABLE IF NOT EXISTS `penugasan` (
   `IDTask` int(3) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`username`,`IDTask`),
   KEY `IDTask` (`IDTask`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data untuk tabel `penugasan`
+-- Dumping data for table `penugasan`
 --
 
+INSERT INTO `penugasan` (`username`, `IDTask`) VALUES
+('raymond', 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tugas`
+-- Table structure for table `tugas`
 --
 
 CREATE TABLE IF NOT EXISTS `tugas` (
@@ -133,45 +143,51 @@ CREATE TABLE IF NOT EXISTS `tugas` (
   PRIMARY KEY (`IDTask`),
   KEY `IDKategori` (`IDKategori`),
   KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data untuk tabel `tugas`
+-- Dumping data for table `tugas`
 --
 
+INSERT INTO `tugas` (`IDTask`, `IDKategori`, `name`, `deadline`, `status`, `tag`, `username`) VALUES
+(2, 1, 'a', '2013-03-12', 0, 'ku, mau', 'yuli');
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `kategori`
+-- Constraints for table `kategori`
 --
 ALTER TABLE `kategori`
   ADD CONSTRAINT `kategori_ibfk_1` FOREIGN KEY (`username`) REFERENCES `pengguna` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `komentar`
+-- Constraints for table `komentar`
 --
 ALTER TABLE `komentar`
   ADD CONSTRAINT `komentar_ibfk_1` FOREIGN KEY (`IDTask`) REFERENCES `tugas` (`IDTask`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `pelampiran`
+-- Constraints for table `pelampiran`
 --
 ALTER TABLE `pelampiran`
   ADD CONSTRAINT `pelampiran_ibfk_1` FOREIGN KEY (`IDTugas`) REFERENCES `tugas` (`IDTask`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `penugasan`
+-- Constraints for table `penugasan`
 --
 ALTER TABLE `penugasan`
   ADD CONSTRAINT `penugasan_ibfk_1` FOREIGN KEY (`username`) REFERENCES `pengguna` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `penugasan_ibfk_2` FOREIGN KEY (`IDTask`) REFERENCES `tugas` (`IDTask`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Ketidakleluasaan untuk tabel `tugas`
+-- Constraints for table `tugas`
 --
 ALTER TABLE `tugas`
   ADD CONSTRAINT `tugas_ibfk_1` FOREIGN KEY (`IDKategori`) REFERENCES `kategori` (`IDKategori`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tugas_ibfk_2` FOREIGN KEY (`username`) REFERENCES `pengguna` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
