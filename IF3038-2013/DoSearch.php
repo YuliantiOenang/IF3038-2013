@@ -20,16 +20,16 @@ if((isset($_GET['filter'])) && (isset($_GET['keyword'])) && $_GET['keyword'] != 
 			$display .=	"<input type='text' id='tugas' class='hidden' value='{$keyword}'><li class='Task1'>";
 			$display .=	"<div>";
 			$display .=	"<b class='design1'>Daftar Tugas</b>";
-			$display .=	"</div>";
 			while($db->nextRecord()){
 				$display .=	"<div>";
 				if($user == "{$db->Record['username']}"){
+			$display .=	"</div>";
 					$display .= "<input type='checkbox' value='None' id='checklist{$db->Record['IDTask']}' name='check' onchange='changevalues({$db->Record['IDTask']})'" ;
 					if($db->Record['stat'] == 1)
 						$display .= "checked";
 					$display .= "/>";
 				}
-				$display .= "<a class='list' href='taskdetails.php'><span>Tag: {$db->Record['tag']}</span>{$db->Record['name']}</a>";
+				$display .= "<a class='list' href='taskdetails.php?id='{$db->Record['IDTask']}'><span>Tag: {$db->Record['tag']}</span>{$db->Record['name']}</a>";
 				$display .=	"<p>{$db->Record['deadline']}</p>";
 				$display .=	"</div>";
 			}
