@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Waktu pembuatan: 22. Maret 2013 jam 17:47
+-- Waktu pembuatan: 23. Maret 2013 jam 02:52
 -- Versi Server: 5.5.8
 -- Versi PHP: 5.3.5
 
@@ -28,16 +28,15 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 CREATE TABLE IF NOT EXISTS `kategori` (
   `IDKategori` int(3) NOT NULL AUTO_INCREMENT,
   `judul` varchar(30) NOT NULL,
-  PRIMARY KEY (`IDKategori`)
+  `username` varchar(30) NOT NULL,
+  PRIMARY KEY (`IDKategori`),
+  KEY `username` (`username`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data untuk tabel `kategori`
 --
 
-INSERT INTO `kategori` (`IDKategori`, `judul`) VALUES
-(1, 'kimia'),
-(2, 'kalkulus');
 
 -- --------------------------------------------------------
 
@@ -67,7 +66,7 @@ CREATE TABLE IF NOT EXISTS `komentar` (
 --
 
 CREATE TABLE IF NOT EXISTS `pelampiran` (
-  `IDTugas` int(3) NOT NULL,
+  `IDTugas` int(3) NOT NULL AUTO_INCREMENT,
   `lampiran` varchar(256) NOT NULL,
   KEY `IDTugas` (`IDTugas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -107,10 +106,10 @@ CREATE TABLE IF NOT EXISTS `pengguna` (
 
 CREATE TABLE IF NOT EXISTS `penugasan` (
   `username` varchar(30) NOT NULL,
-  `IDTask` int(3) NOT NULL,
+  `IDTask` int(3) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`username`,`IDTask`),
   KEY `IDTask` (`IDTask`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data untuk tabel `penugasan`
@@ -134,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `tugas` (
   PRIMARY KEY (`IDTask`),
   KEY `IDKategori` (`IDKategori`),
   KEY `username` (`username`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data untuk tabel `tugas`
@@ -144,6 +143,12 @@ CREATE TABLE IF NOT EXISTS `tugas` (
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
+
+--
+-- Ketidakleluasaan untuk tabel `kategori`
+--
+ALTER TABLE `kategori`
+  ADD CONSTRAINT `kategori_ibfk_1` FOREIGN KEY (`username`) REFERENCES `pengguna` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `komentar`
@@ -168,5 +173,5 @@ ALTER TABLE `penugasan`
 -- Ketidakleluasaan untuk tabel `tugas`
 --
 ALTER TABLE `tugas`
-  ADD CONSTRAINT `tugas_ibfk_2` FOREIGN KEY (`username`) REFERENCES `pengguna` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tugas_ibfk_1` FOREIGN KEY (`IDKategori`) REFERENCES `kategori` (`IDKategori`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tugas_ibfk_1` FOREIGN KEY (`IDKategori`) REFERENCES `kategori` (`IDKategori`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tugas_ibfk_2` FOREIGN KEY (`username`) REFERENCES `pengguna` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
