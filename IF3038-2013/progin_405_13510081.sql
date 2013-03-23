@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.3.9
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 23, 2013 at 03:51 AM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Host: localhost
+-- Waktu pembuatan: 23. Maret 2013 jam 05:16
+-- Versi Server: 5.5.8
+-- Versi PHP: 5.3.5
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -23,7 +22,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori`
+-- Struktur dari tabel `kategori`
 --
 
 CREATE TABLE IF NOT EXISTS `kategori` (
@@ -35,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `kategori` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `kategori`
+-- Dumping data untuk tabel `kategori`
 --
 
 INSERT INTO `kategori` (`IDKategori`, `judul`, `username`) VALUES
@@ -47,7 +46,7 @@ INSERT INTO `kategori` (`IDKategori`, `judul`, `username`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `komentar`
+-- Struktur dari tabel `komentar`
 --
 
 CREATE TABLE IF NOT EXISTS `komentar` (
@@ -60,10 +59,15 @@ CREATE TABLE IF NOT EXISTS `komentar` (
   KEY `IDTask` (`IDTask`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+--
+-- Dumping data untuk tabel `komentar`
+--
+
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pelampiran`
+-- Struktur dari tabel `pelampiran`
 --
 
 CREATE TABLE IF NOT EXISTS `pelampiran` (
@@ -73,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `pelampiran` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `pelampiran`
+-- Dumping data untuk tabel `pelampiran`
 --
 
 INSERT INTO `pelampiran` (`IDTugas`, `lampiran`) VALUES
@@ -82,7 +86,7 @@ INSERT INTO `pelampiran` (`IDTugas`, `lampiran`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengguna`
+-- Struktur dari tabel `pengguna`
 --
 
 CREATE TABLE IF NOT EXISTS `pengguna` (
@@ -97,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `pengguna` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pengguna`
+-- Dumping data untuk tabel `pengguna`
 --
 
 INSERT INTO `pengguna` (`username`, `password`, `fullname`, `birthday`, `email`, `avatar`) VALUES
@@ -109,7 +113,7 @@ INSERT INTO `pengguna` (`username`, `password`, `fullname`, `birthday`, `email`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penugasan`
+-- Struktur dari tabel `penugasan`
 --
 
 CREATE TABLE IF NOT EXISTS `penugasan` (
@@ -120,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `penugasan` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `penugasan`
+-- Dumping data untuk tabel `penugasan`
 --
 
 INSERT INTO `penugasan` (`username`, `IDTask`) VALUES
@@ -129,7 +133,7 @@ INSERT INTO `penugasan` (`username`, `IDTask`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tugas`
+-- Struktur dari tabel `tugas`
 --
 
 CREATE TABLE IF NOT EXISTS `tugas` (
@@ -137,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `tugas` (
   `IDKategori` int(3) NOT NULL,
   `name` varchar(30) NOT NULL,
   `deadline` date NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `stat` tinyint(1) NOT NULL DEFAULT '0',
   `tag` varchar(256) DEFAULT NULL,
   `username` varchar(30) NOT NULL,
   PRIMARY KEY (`IDTask`),
@@ -146,48 +150,44 @@ CREATE TABLE IF NOT EXISTS `tugas` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `tugas`
+-- Dumping data untuk tabel `tugas`
 --
 
-INSERT INTO `tugas` (`IDTask`, `IDKategori`, `name`, `deadline`, `status`, `tag`, `username`) VALUES
+INSERT INTO `tugas` (`IDTask`, `IDKategori`, `name`, `deadline`, `stat`, `tag`, `username`) VALUES
 (2, 1, 'a', '2013-03-12', 0, 'ku, mau', 'yuli');
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `kategori`
+-- Ketidakleluasaan untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
   ADD CONSTRAINT `kategori_ibfk_1` FOREIGN KEY (`username`) REFERENCES `pengguna` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `komentar`
+-- Ketidakleluasaan untuk tabel `komentar`
 --
 ALTER TABLE `komentar`
   ADD CONSTRAINT `komentar_ibfk_1` FOREIGN KEY (`IDTask`) REFERENCES `tugas` (`IDTask`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pelampiran`
+-- Ketidakleluasaan untuk tabel `pelampiran`
 --
 ALTER TABLE `pelampiran`
   ADD CONSTRAINT `pelampiran_ibfk_1` FOREIGN KEY (`IDTugas`) REFERENCES `tugas` (`IDTask`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `penugasan`
+-- Ketidakleluasaan untuk tabel `penugasan`
 --
 ALTER TABLE `penugasan`
   ADD CONSTRAINT `penugasan_ibfk_1` FOREIGN KEY (`username`) REFERENCES `pengguna` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `penugasan_ibfk_2` FOREIGN KEY (`IDTask`) REFERENCES `tugas` (`IDTask`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `tugas`
+-- Ketidakleluasaan untuk tabel `tugas`
 --
 ALTER TABLE `tugas`
   ADD CONSTRAINT `tugas_ibfk_1` FOREIGN KEY (`IDKategori`) REFERENCES `kategori` (`IDKategori`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `tugas_ibfk_2` FOREIGN KEY (`username`) REFERENCES `pengguna` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

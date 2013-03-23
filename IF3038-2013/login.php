@@ -3,7 +3,6 @@ include 'connectDB.php';
 
 class Login {
 	private $db;
-	private $istrue;
 	
 	public function __construct() {
 		$this->db = new DB();

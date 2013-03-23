@@ -1,49 +1,120 @@
-function ShowTask(s,jum){
-	for(var i=1;i<=jum;i++)
-	{
-		var n="Task"+i;
-		if(i==s)
-		{
-			var obj=document.getElementById(n);
-			obj.style.display="block";
-		}
-		else
-		{
-			var obj=document.getElementById(n);
-			obj.style.display="none";
-		}
-	}
+function getXmlHttpRequest() {
+	var xmlHttpObj;
 	
-}
-
-function FormAddKategori(){
-	var form=document.getElementById("popupform");
-	form.style.display="block";
-
-	var obj= document.getElementById("popup");
-	obj.style.display="block";
-}
-
-function AddKategori(){
-	var d1 = document.getElementById('namakategori').value;
-	if (d1==""){
-		
-	}else{
-	var div = document.getElementById ("kategori");
-	div.innerHTML += "<a onClick=\"ShowTask('2','5')\">"+d1+"</a>";
-  
-	var form=document.getElementById("popupform");
-	form.style.display="none";
-
-	var obj= document.getElementById("popup");
-	obj.style.display="none";
+	if(window.XMLHttpRequest)
+		xmlHttpObj = new XMLHttpRequest();
+	else {
+		try {
+			xmlHttpObj = new ActiveXObject("Msxm12.XMLHTTP");
+		}
+		catch(e) {
+			try {
+				xmlHttpObj = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			catch(e) {
+				xmlHttpObj = false;
+			}
+		}
 	}
-	}
-
-function DelPopUp(){
-var form=document.getElementById("popupform");
-form.style.display="none";
-
-var obj= document.getElementById("popup");
-obj.style.display="none";
+	return xmlHttpObj;
 }
+
+function initDashboard(sessionID) {
+	window.xmlhttp = getXmlHttpRequest();
+	if(!window.xmlhttp)
+		return;
+	window.xmlhttp.open('POST', 'dashboard.php', true);
+	window.xmlhttp.onreadystatechange = writeDashboard;
+	window.xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	window.xmlhttp.send();
+}
+
+function writeDashboard() {
+	if(window.xmlhttp.readyState == 4 && window.xmlhttp.status == 200) {
+		var response = window.xmlhttp.responseXML;
+		var idcategory = response.getElementsByTagName('idkategori');
+		var category = response.getElementsByTagName('kategori');
+		var categlist = document.getElementById('categlist');
+		for(var i=0; i < category.length; i++) {
+			var kategori = document.createElement('li');
+			kategori.name = 'kategori';
+			kategori.innerHTML = '<a href=\'javascript:selectCategory("' + idcategory[i].firstChild.nodeValue + '")\'>' + category[i].firstChild.nodeValue + '</a>';
+			categlist.appendChild(kategori);
+		}
+		var id = response.getElementsByTagName('id');
+		var nama = response.getElementsByTagName('nama');
+		var deadline = response.getElementsByTagName('deadline');
+		var status = response.getElementsByTagName('status');
+		var tag = response.getElementsByTagName('tag');
+		var canerase = response.getElementsByTagName('canerase');
+		var kegiatan = document.getElementById('kegiatan');
+		for(var i=0; i < nama.length; i++) {
+			var tugas = document.createElement('li');
+			kategori.name = 'task';
+			var link = document.createElement('a');
+			link.setAttribute('class', 'list');
+			link.setAttribute('href', 'taskdetails.php?id=' + encodeURIComponent(id[i].firstChild.nodeValue));
+			link.innerHTML = nama[i].firstChild.nodeValue;
+			tugas.appendChild(link);
+			var form = document.createElement('form');
+			form.innerHTML = "<label for='deadline'>Deadline</label>: " + deadline[i].firstChild.nodeValue + "<br />";
+			form.innerHTML = form.innerHTML + "<label for='tag'>Tag</label>: " + tag[i].firstChild.nodeValue + "<br />";
+			if(status[i].firstChild.nodeValue == 0) {
+				form.innerHTML = form.innerHTML + "<label for='status'>Status</label>: Belum selesai<br />";
+				form.innerHTML = form.innerHTML + "<input type='checkbox' value='1'><i class='status'> Buat selesai?</i></input>";
+			}
+			else {
+				form.innerHTML = form.innerHTML + "<label for='status'>Status</label>: Sudah selesai<br />";
+				form.innerHTML = form.innerHTML + "<input type='checkbox' checked='checked' disabled><i class='status'> Buat selesai?</i></input>";
+			}
+			tugas.appendChild(form);
+			if(canerase[i].firstChild.nodeValue == 'true') {
+				link = document.createElement('a');
+				link.setAttribute('href', 'javascript:deleteTask("' + id[i].firstChild.nodeValue + '")');
+				link.innerHTML = '<div class="hapus"></div>';
+				tugas.appendChild(link);
+			}
+			kegiatan.appendChild(tugas);
+		}
+	}
+}
+
+function deleteTask(id) {
+	window.xmlhttp = getXmlHttpRequest();
+	if(!window.xmlhttp)
+		return;
+	window.xmlhttp.open('POST', 'deletetask.php', true);
+	var query = 'id=' + id;
+	window.xmlhttp.onreadystatechange = function() {
+		if(window.xmlhttp.readyState == 4 && window.xmlhttp.status == 200) {
+			var response = window.xmlhttp.responseText;
+			if(response == '1')
+				alert('Tugas berhasil dihapus');
+			else
+				alert('Tugas gagal dihapus');
+			window.location.replace('home.php');
+		}
+	};
+	window.xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	window.xmlhttp.send(query);
+}
+
+function addCategory() {
+	window.xmlhttp = getXmlHttpRequest();
+	if(!window.xmlhttp)
+		return;
+	window.xmlhttp.open('POST', 'addcategory.php', true);
+	var query = 'name=' + encodeURIComponent(document.getElementById('namakategori').value) + '&users=' + encodeURIComponent(document.getElementById('daftarpengguna').value);
+	window.xmlhttp.onreadystatechange = function() {
+		if(window.xmlhttp.readyState == 4 && window.xmlhttp.status == 200) {
+			var response = window.xmlhttp.responseText;
+			if(response == '1')
+				alert('Tugas berhasil dihapus');
+			else
+				alert('Tugas gagal dihapus');
+			window.location.replace('home.php');
+		}
+	};
+	window.xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	window.xmlhttp.send(query);
+}	

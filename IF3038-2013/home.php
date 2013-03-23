@@ -1,35 +1,19 @@
+<?php
+	session_start();
+	if(!isset($_SESSION['bananauser']))
+		header('location:index.php');
+?>
+
 <!DOCTYPE html>
-<html>	
+<html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title> Banana Board - Home </title>
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<script src="Dashboard.js" type="text/javascript" language="javascript"> </script>
+		<script src="Dashboard.js" type="text/javascript" language="javascript"></script>
 	</head>
-	<body>
-	
+	<body onload='initDashboard("<?php $_SESSION['bananauser'] ?>")'>
 		<div id="content">
-			<div id="popup">
-	       	</div>
-    	    <div id="popupform">
-        	    <form class="centerV">
-					<ul>
-						<li>
-							<label>Nama Kategori</label>
-							:<input id="namakategori" type="text" name="namakategori" id="namakategori"/><br/>
-						</li>
-						<li>
-							<label>Daftar Pengguna</label>
-							:<input type="text" name="daftarpengguna"id="daftarpengguna"/><br/>
-						</li>
-						<li>
-							<button id="add" onClick="AddKategori()"><b>Add</b></button>
-							<button id="cancel" onClick="DelPopUp()"><b>Cancel</b></button>
-						</li>						
-					</ul>
-				</form>
-            </div>
-			
 			<div id="header">
 				<div id="logo">
 					<img src="image/logo.png"/>
@@ -38,147 +22,64 @@
 					<ul>
 						<li> <a href="home.php"> DASHBOARD </a> </li>
 						<li> <a href="profile.php"> PROFILE </a> </li>
-						<li> <a href="index.php"> LOGOUT </a> </li>
+						<li> <a href="logout.php"> LOGOUT </a> </li>
 					</ul>
-					<form action="index.php">
-						<input class="button" type="submit" value="">
+					<form action='index.php' method='get'>
 						<input class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query">
-						
+						<button id='searchbutton' type='submit'></button>
 					</form>
 				</div>
 			</div>
 			
 			<div id="isi">
 				<div id="leftsidebar">
-					<ul>
-						<a class="addcateg"><i class="addcateg" onClick="FormAddKategori()">Add new category...</i></a>
-						<li><a onClick="ShowTask('1','8')">IMK</a></li>
-						<li><a onClick="ShowTask('2','8')">Tubes Progin</a></li>
-						<li><a onClick="ShowTask('3','8')">Inteligensia Buatan</a></li>
-						<li><a onClick="ShowTask('4','8')">KAP</a></li>
-						<li><a onClick="ShowTask('5','8')">Keamanan Informasi</a></li>
-						<li id="kategori"></li>
+					<ul id='categlist'>
+						<a href='#addcategory' id="addcateg"><i>Add new category...</i></a>
 					</ul>
 					<img src="image/leftmenu.png"/>
 				</div>
 				
 				<div id="rightsidebar">
+					<a href='MakeTask.php' id='addtask'><i></i></a>
 					<ul id="kegiatan">
-						<li id="Task1">
-							<div>
-							<b class="design2"><a href="MakeTask.html">+</a></b>
-							<b class="design1">IMK</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.php"><span>Tag: kelompok, 3 orang</span>tugas1</a>
-									<p>22/02/12</p>
-								</div>
-								<div>
-								<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.php"><span>Tag: kelompok, 3 orang</span>tugas2</a>
-									<p>22/02/12</p>
-								</div>
-							</div>
-						</li>
-						<li id="Task2">
-							<div>
-							<b class="design2"><a href="MakeTask.html">+</a></b>
-							<b class="design1">Tubes Progin</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>design css</a>
-									<p>15/02/12</p>
-								</div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>index</a>
-									<p>15/02/12</p>
-								</div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>profile</a>
-									<p>16/02/12</p>
-								</div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>task</a>
-									<p>16/02/12</p>
-								</div>
-							</div>
-						</li>
-						<li id="Task3">
-							<div>
-							<b class="design2"><a href="MakeTask.html">+</a></b>
-							<b class="design1">Inteligensia Buatan</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>PR 1</a>
-									<p>10/02/12</p>
-								</div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>PR 2</a>
-									<p>16/02/12</p>
-								</div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>tubes 1</a>
-									<p>22/02/12</p>
-								</div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>baca bab 2</a>
-									<p>25/02/12</p>
-								</div>
-							</div>
-						</li>
-						<li id="Task4">
-							<div>
-							<b class="design2"><a href="MakeTask.html">+</a></b>
-							<b class="design1">KAP</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>self concept</a>
-									<p>02/02/12</p>
-								</div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>history</a>
-									<p>09/02/12</p>
-								</div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>percepts & assertiveness</a>
-									<p>16/02/12</p>
-								</div>								
-							</div>
-						</li>
-						<li id="Task5">
-							<div>
-							<b class="design2"><a href="MakeTask.html">+</a></b>
-							<b class="design1">Keamanan Informasi</b>
-							</div>
-							<div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>Sniffing</a>
-									<p>13/02/12</p>
-								</div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>install IRC</a>
-									<p>11/02/12</p>
-								</div>
-								<div>
-									<input type="checkbox" value="None" id="squaredTwo" name="check" /><a class="list" href="taskdetails.html"><span>Tag: kelompok, 3 orang</span>tugas c</a>
-									<p>26/02/12</p>
-								</div>
-							</div>
+						<li>
+							<a class='list' href="taskdetails.php">tugas1</a>
+							<form>
+								<label for='deadline'>Deadline</label>: 22-02-2012<br />
+								<label for='tag'>Tag</label>: kelompok, 3 orang<br />
+								<label for='status'>Status</label>: Belum Selesai <br />
+								<input type="checkbox"><i class='status'> Buat selesai?</i></input>
+							</form>
+							<a href=''><div class='hapus'></div></a>
 						</li>
 					</ul>
 				</div>
-			</div>
 			
 			<div id="footer" class="home">
 				<p>&copy Copyright 2013. All rights reserved<br>
 				Chalkz Team<br>
-				Yulianti - Adriel - Amelia</p>			
+				Yulianti - Raymond - Devin</p>			
 			</div>
 		</div>
 
-			
+		<a href='#' class='overlay' id='addcategory'></a>
+		<div class="popup">
+			<form method='post'>
+				<ul>
+					<li>
+						<label>Nama Kategori</label>
+						:<input id="namakategori" type="text" name="namakategori" id="namakategori"/><br/>
+					</li>
+					<li>
+						<label>Daftar Pengguna</label>
+						:<input type="text" name="daftarpengguna"id="daftarpengguna"/><br/>
+					</li>
+					<li>
+						<button id="add" type='submit' onclick='addCategory()'><b>Add</b></button>
+						<button id="cancel" onclick='location.href="#"'><b>Cancel</b></button>
+					</li>						
+				</ul>
+			</form>
+		</div>	
 	</body>
 </html>

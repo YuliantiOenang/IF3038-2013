@@ -4,15 +4,29 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Banana Board - Your Task's Details</title>		
         <link rel="stylesheet" type="text/css" href="style.css"> 
+		<script type="text/javascript" src="datetimepicker.js"></script>
+		<script type="text/javascript" src="taskdetails.js"></script>
+		<script type="text/javascript" src="raymond.js"></script>
     </head>
 
-    <body onload="initialize()">
+    <body>
+	<?
+		session_start();
+		if(!isset ($_SESSION['bananauser']))
+		{
+			header('location:index.php');
+		}
+		else
+		{
+				$username=$_SESSION['bananauser'];
+		}
+	?>
     <?php include 'taskdetailscontroller.php'; ?>
         <div id="content">
             <div id="header">
                 <div id="logo">
                     <a href="home.php" class="header">
-					<img src="logo.png"/></a>
+					<img src="image/logo.png"/></a>
                 </div>
                 <div id="menu">
                     <ul>
@@ -30,7 +44,7 @@
 			<div id="isi">
 				<div id="leftsidebar">
 					<b>TASK DETAILS</b>
-					<img src="leftmenu.png"/>
+					<img src="image/leftmenu.png"/>
 				</div>
 				<div id="rightsidebar">
 					<div id="wrapper-left">
@@ -38,20 +52,20 @@
 							<h1>Details</h1>
 							<li>
 								<label for="tugas">Nama Tugas</label>
-								<input id="tugas" type="text" size="50" value="<?php $task=new task();echo $task->name;?>" disabled/><br>
+								<div class="text"><?$task=new task();echo $task->name;?></div>
 							</li>
                             <li>
 								<label for="tugas">Status</label>
-								<input id="tugas" type="text" size="50" value="<? $task=new task();echo $task->status;?>" disabled/><br>
-                                <form method="post">
+								<div class="text"><?echo $task->status;?></div>
+                                <form method="post" action="taskdetailscontroller.php">
                                 <button>ubah status</button>
                                 </form>
 							</li>
 							<li>
 								<label for="attach">Attachment</label>
-								<input id="attach" type="file" onChange="loadAttachment()"/><br>
-                                <?php
-								 $task=new task();
+								<br>
+								<br>
+                                <?
                                  while($info = mysql_fetch_array($task->attachment)) 
 								 { 
 									$array= explode(".", $info['lampiran']);
@@ -60,49 +74,129 @@
 									{
 										Print "<img src=".$info['lampiran']." style=\"width: 220px;height: 230px;\"><br>"; 
 									}
-									else if($ext=='ogg'||$ext=='mp4' ||$ext=='webm')
+									else if($ext=='ogg')
 									{
 										Print "<video width=\"320\" height=\"240\" controls autoplay><source src=".$info['lampiran']." type=\"video/".$ext."\"></video><br>"; 
+									}
+									else
+									{
+										Print "<a href=\"".$info['lampiran']."\" target=\"_blank\">".substr($info['lampiran'],7)."</a><br>";
 									}
 								 } 
 								 ?>
 							</li>
 							<li>
 								<label for="deadline">Deadline</label>
-								<select id="tanggallist" class="deadline" disabled>
-								</select>
-								<select id="bulanlist" class="deadline" disabled>
-								</select>
-								<select id="tahunlist" class="deadline" disabled>
-								</select>
+								<input id="deadline" type="text" size="25"/ value="<?$array= explode("-",$task->deadline);echo $array[2]."-".$array[1]."-".$array[0];?>"readonly>
+								<a id="tanggal" href="javascript:NewCal('deadline','ddmmyyyy')" onclick="return false"><img src="image/cal.gif" alt="Pick a date"/></a>
 							</li>
 							<li>
 								<label for="assignee">Assignee</label>
-								<input id="assignee" type="text" size="50" autocomplete="on" disabled/><br>
+								<div id="anggota">
+								<?
+								$i=1;
+								$num_rows = mysql_num_rows($task->assignee);
+								if($num_rows==0)
+								{
+									print "<br>";
+								}
+								else{
+								while($info = mysql_fetch_array($task->assignee))
+								{	print "<div id=\"".$info['username']."\">";
+									print "<a  href=\"profile.php?username=".$info['username']."\">". $info['username']."</a>";
+									print "<a id=\"r".$i."\" href=\"#\" style=\"visibility:hidden\" onclick=\"removeA('".$info['username']."')\">(remove)</a><br>";
+									$i++;
+									print"</div>";
+								}
+								}
+								
+								?>
+								</div>
+								<div id="assignee">
+								
+								</div>
+								<li id="layer1">
+								</li>
+									
 							</li>							
 							<li>
-								<label for="textfields">Tag</label>
-								<input id="tag" type="text" size="50" disabled/><br>
-								<button id="edit" name="edit" type="button" onclick="editTask()"><b>Edit</b></button><br>
+								<label>Tag</label>
+								<div id="data">
+								<?
+									$pieces = explode(",", $task->tag);
+									for($i=0;$i<count($pieces);$i++)
+									{
+										
+										if($i==count($pieces)-1)
+										{
+											print $pieces[$i];
+										}
+										else
+										{
+											print $pieces[$i].",";
+										}
+									}
+								?>
+								</div>
+								<input id="inputtag" type="text" style="visibility:hidden;" placeholder="example1,example2"></input>
 							</li>
-						</ul>
-						
-						<div id="comment">
-							<textarea id="commentbox" name="commentbox" disabled></textarea>
+							<button id="edit" name="edit" type="button" onclick="editTask(<?echo $task->jumlahA?>)"><b>Edit</b></button><br>
+						<div class="task">
+						<?
+							print "<li>";
+								print "<label id=\"a\"  for=\"komentar\">Komentar(".$task->jumlah.")</label>";
+								print
+								"</li>";
+								print "<br>";
+								
+								while($info = mysql_fetch_array($task->comment))
+								{
+								print "<div id=\"".$info['IDKomentar']."\">";
+								print "<div class=\"headerComment\">";
+								print "<div class=avatar style=\"float:left;\">";
+								if($info['avatar']=="")
+								{
+									print "<img src=\"image\/profpic.jpg\" height=\"42\" width=\"42\">";
+								}
+								else
+								{
+									print "<img src=".$info['avatar']." height=\"42\" width=\"42\">";
+								}
+								print "</div>";
+								print "<div class=username style=\"float:left;\"><b>".$info['username'];
+								
+								print "</b></div>";
+								print "<div class=waktu><b>".$info['waktu'];
+								print "</b></div>";
+								print "<div>";
+								if($info['username']!=''.$username.'')
+								{}
+								else
+								{
+								print "<a class=\"remove\" href=\"\" onClick=\"removeComment(".$info['IDKomentar'].");return false;\" >remove";
+								
+								print "</a>";
+								}
+								print "</div>";
+								
+								print "</div>";
+								print "<li>".$info['isi']."</li>";
+								print "</div>";
+								//echo "aaa";
+								}
+								?>
+							
+								
+								
 							<form id="commentform">
-								<input class="task" id="commentfield" name="commentfield" type="text" size="50"/> 
-								<input id="commentbutton" name="commentbutton" type="submit" value="Comment"/>
+								<input class="task" id="commentfield" name="commentfield" type="text" size="1000"/> 
+
+								<input id="commentbutton" name="commentbutton" type="submit" value="Comment" onClick="addcomment(<?echo "'".$username."'"?>);return false;"/>
 							</form>
 						</div>
-					</div>	
-					<div id="wrapper-right">
-						<img id="suatu_gambar" src="Troll.png" alt="Gambar tidak dapat di-load"/>    
-						<video id="suatu_video" width="320" height="240" controls>
-							<source src="A_Caterpillar.mp4" type="video/mp4">
-							<source src="A_Caterpillar.ogv" type="video/ogv">
-							Your browser does not support the video tag.
-						</video>
-						<a id="linkoflink" href="http://www.cblt.soton.ac.uk/multimedia/PDFs08/Podcasting%20in%20education.pdf">Link here</a>
+						
+						</ul>
+						
 					</div>
 				</div>
 			</div>
@@ -110,11 +204,10 @@
 			<div id="footer" class="home">
 				<p>&copy Copyright 2013. All rights reserved<br>
 				Chalkz Team<br>
-				Yulianti - Adriel - Amelia</p>			
+				Yulianti - Raymond - Devin</p>			
 			</div>
         </div>
-        
-        <script	type="text/javascript">
+         <script	type="text/javascript">
 			var temp = document.getElementById("commentform");
 			temp.onsubmit = function()
 			{
@@ -122,30 +215,7 @@
 				return false;
 			}
 			
-			function editTask()
-			{
-				if (document.getElementById("edit").innerHTML == "<b>Edit</b>")
-				{
-					document.getElementById("tugas").disabled = false;
-					document.getElementById("tanggallist").disabled = false;
-					document.getElementById("bulanlist").disabled = false;
-					document.getElementById("tahunlist").disabled = false;
-					document.getElementById("assignee").disabled = false;
-					document.getElementById("tag").disabled = false;
-					document.getElementById("edit").innerHTML = "<b>Save</b>";
-					document.getElementById("edit").innerHTML.style = bold;
-				}
-				else if (document.getElementById("edit").innerHTML == "<b>Save</b>")
-				{
-					document.getElementById("tugas").disabled = true;
-					document.getElementById("tanggallist").disabled = true;
-					document.getElementById("bulanlist").disabled = true;
-					document.getElementById("tahunlist").disabled = true;
-					document.getElementById("assignee").disabled = true;
-					document.getElementById("tag").disabled = true;
-					document.getElementById("edit").innerHTML = "<b>Edit</b>";
-				}
-			}
+			
 			
 			function postComment()
 			{
@@ -158,65 +228,10 @@
 				b.value = "";
 			}
 			
-			function loadAttachment()
-			{
-				var x = document.getElementById("attach").value;
-				var y = x.split(".");
-				var z = y[y.length-1];
-				if (z == "jpg" || z == "ogg" || z == "jpeg" || z == "png" || z == "gif")
-				{
-					document.getElementById("suatu_video").style.display = "none";
-					document.getElementById("suatu_gambar").style.display = "block";
-					document.getElementById("linkoflink").style.display = "none";
-				}
-				else if (z == "avi" || z == "mp4" || z == "mkv" || z == "3gp" || z == "flv" || z == "ogv" || z == "ogg")
-				{
-					document.getElementById("suatu_gambar").style.display = "none";
-					document.getElementById("suatu_video").style.display = "block";
-					document.getElementById("linkoflink").style.display = "none";
-				}
-				else
-				{
-					document.getElementById("suatu_gambar").style.display = "none";
-					document.getElementById("suatu_video").style.display = "none";
-					document.getElementById("linkoflink").style.display = "block";
-				}
-			}
 			
-			function initialize()
-			{
-				generateDate();
-			}
 			
-			function generateDate()
-			{
-				var b = document.getElementById("tanggallist");
-				for (var i = 1; i <= 31; i++)
-				{
-					var option = document.createElement("option");
-					option.text = "" + i;
-					option.value = "date" + i;
-					b.appendChild(option);
-				}
-				
-				var c = document.getElementById("bulanlist");
-				for (var i = 1; i <= 12; i++)
-				{
-					var option = document.createElement("option");
-					option.text = "" + i;
-					option.value = "month" + i;
-					c.appendChild(option);
-				}
-				
-				var d = document.getElementById("tahunlist");
-				for (var i = 1955; i <= 2013; i++)
-				{
-					var option = document.createElement("option");
-					option.text = "" + i;
-					option.value = "month" + i;
-					d.appendChild(option);
-				}
-			}
+			
 		</script>
+        
     </body>
 </html>

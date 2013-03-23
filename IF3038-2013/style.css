@@ -16,94 +16,150 @@ width: 70px;
 #cancel{
 margin: 10px 10px 0 0;
 }
-/* Pop Up Tambah Kategori */
-#popup{
-z-index:0;
-background-color:#666;
-opacity: 0.7;
-width:100%;
-position:absolute;
-top:0;
-left:0;
-padding:0;
-}
-#popupform{
-margin-left: auto;
-margin-right: auto;
-width:500px;
-z-index:1000;
-display:none;
-}
-.centerV ul{
-padding:10px 10px 10px 10px;
-display: table-cell;
-top:50%;
-margin-top:-50px;
-position:absolute;
-vertical-align: middle;
-border:5px solid #000000;
-background-color:#FC0;
-opacity:1;
-width: 400px;
-list-style-type: none;
-z-index: 1000;
-}
-.centerV li{
-list-style-type: none;
-position: relative;
-color: black;
-padding: 20px 10px 20px;
-}
-.centerV label{
-width: 130px;
-display: inline-block;
-float: left;
-font-size: 16px;
-font-family: 'segoe ui';
-padding: 3px;
-}
-.centerV input{
-height: 15px;
-width: 200px;
-padding: 5px 8px;
-margin-left: 15px;
-border-radius: 5px;
-}
-.centerV button{
-float: right;
-height: 30px;
-margin: 0;
-border-radius: 5px;
-border-color: #351b02;
-background-color: #351b02;
-color: white;
-font-family: 'segoe ui';
-font-size: 18px;
-}
-.centerV button:hover{
-background-color: #fcff00;
-color: #351b02;
 
+/* Pop Up Tambah Kategori */
+.overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    cursor: default;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    visibility: hidden;
+    z-index: 1;
+
+    -webkit-transition: opacity .5s;
+    -moz-transition: opacity .5s;
+    -ms-transition: opacity .5s;
+    -o-transition: opacity .5s;
+    transition: opacity .5s;
+}
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+.popup {
+    background-color:#FC0;
+    border:5px solid #000000;
+    display: inline-block;
+    left: 50%;
+    opacity: 0;
+    padding: 15px;
+    position: fixed;
+    text-align: justify;
+    top: 40%;
+    visibility: hidden;
+    z-index: 10;
+
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+
+    -webkit-box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
+    -moz-box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
+    -ms-box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
+    -o-box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
+    box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
+
+    -webkit-transition: opacity .5s, top .5s;
+    -moz-transition: opacity .5s, top .5s;
+    -ms-transition: opacity .5s, top .5s;
+    -o-transition: opacity .5s, top .5s;
+    transition: opacity .5s, top .5s;
+}
+.overlay:target+.popup {
+    top: 50%;
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup input[type="text"] {
+    border: 1px solid;
+    border-color: #999 #ccc #ccc;
+	height: 15px;
+	width: 200px;
+	padding: 5px 8px;
+	margin-left: 15px;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+.popup input[type="text"]:hover {
+    border-color: #555 #888 #888;
+}
+.popup ul{
+	padding:10px 10px 10px 10px;
+	display: table-cell;
+	vertical-align: middle;
+	list-style-type: none;
+}
+.popup li{
+	list-style-type: none;
+	position: relative;
+	color: black;
+	padding: 20px 10px 20px;
+}
+.popup label{
+	width: 130px;
+	display: inline-block;
+	float: left;
+	font-size: 16px;
+	font-family: 'segoe ui';
+	padding: 3px;
+}
+
+.popup button{
+	float: right;
+	height: 30px;
+	margin: 0;
+	border-color: #351b02;
+	background-color: #351b02;
+	color: white;
+	font-family: 'segoe ui';
+	font-size: 18px;
+	
+	-webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+.popup button:hover{
+	background-color: #fcff00;
+	color: #351b02;
 }
 
 /*--------- index ---------*/
 #indexheader {
 width: 1200px;
-height: 175px;
+height: 125px;
 background-color: #351b02;
 margin:auto;
 padding: 0 0 0 0;
 }
 
 #indexheader img {
-width: 300px;
-height: 175px;
+width: 200px;
+height: 125px;
 float: left;
-margin-left: 100px;
+margin-left: 175px;
 background-color: #feff95;
 }
 
-#indexheader form{
+#loginform{
 float: right;
 margin-right: 50px;
 }
@@ -327,7 +383,7 @@ width: 454px;
 height:30px;
 }
 
-#menu form input.box {
+#menu .box {
 background:url('image/searchbox.jpg') no-repeat;
 width: 150px;
 height: 30px;
@@ -338,7 +394,7 @@ font-family: 'segoe ui';
 color: grey;
 }
 
-#menu form input.button {
+#searchbutton {
 background:url('image/search_button.jpg') no-repeat;
 width: 80px;
 height: 30px;
@@ -347,7 +403,7 @@ margin-right: 12px;
 float: right;
 }
 
-#menu form input.button:hover {
+#searchbutton:hover {
 background:url('image/search_click.jpg') no-repeat;
 width: 80px;
 height: 30px;
@@ -463,8 +519,8 @@ width:268px;
 padding: 16px;
 }
 #leftsidebar ul li a:link{
-background-color:#feff95;
-width: 260px;
+background-color:#fcff00;
+width: 268px;
 }
 #leftsidebar ul li a:visited{
 background-color:#fcff00;
@@ -504,7 +560,7 @@ margin-top:18px;
 background-color:#fcff00;
 }
 
-.addcateg, .addcateg i{
+#addcateg {
 text-decoration:none;
 font-size: 16px;
 font-family: 'segoe ui';
@@ -515,7 +571,7 @@ margin: 0;
 color: #351b02;
 cursor: pointer;
 }
-.addcateg:hover{
+#addcateg:hover{
 color: #fe9227;
 }
 #rightsidebar, #rightsidebar1  {
@@ -525,6 +581,7 @@ margin-top:18px;
 background-color: #351b02;
 padding-top: 30px;
 padding-bottom: 30px;
+overflow: auto;
 }
 
 #kegiatan {
@@ -533,98 +590,64 @@ list-style: none;
 width: 880px;
 margin: 0 0 18px 10px;
 padding: 0;
+overflow: auto;
 }
 #kegiatan li {
-float: left;
-width: 400px;
-margin: 30px 20px 12px;
-text-align: left;
-list-style:none;
-display: block;
-}
-#kegiatan b.design1 {
-color: #351b02;
-display: block;
-padding: 12px;
-font-family: 'Segoe UI';
-font-size: 24px;
-background-color: #fe9227;
-margin: 0;
-width: 350px;
-}
-#kegiatan b.design2 a{
-color: #351b02;
-display: block;
-padding: 6px 10px 7px 0;
-font-family: 'Segoe UI';
-font-size: 32px;
-background-color: #fe9227;
-margin: 0;
-float: right;
-text-decoration: none;
-}
-#kegiatan a.list {
-background-color: #feff95;
-display: block;
-padding: 12px;
-font-family: 'Segoe UI';
-font-size: 18px;
-color: #351b02;
-margin: 0 20px 0 0;
-width: 200px;
-float: left;
-text-decoration: none;
-border-bottom-color: #fe9227;
-border-bottom-width: 1px;
-border-bottom-style: solid;
-}
-#kegiatan input{
-margin: 20px 20px 0 20px;
-float: left;
-}
-#kegiatan p{
-color: #351b02;
-background-color: #feff95;
-padding: 12px;
-margin: 0;
-font-family: 'Segoe UI';
-font-size: 18px;
-border-bottom-color: #fe9227;
-border-bottom-width: 1px;
-border-bottom-style: solid;
-}
-
-#kegiatan a, #kegiatan a:visited
-{
-	position:relative;
-	z-index: 0;
-}
-
-#kegiatan a span
-{
-	display: none;
-	z-index: 0;
-	
-}
-
-#kegiatan a:hover span
-{
-	display: block;
-	position: absolute;
-	top: 0px;
-	left: 120px;
-	width: 160px;
-	margin: 0px;
+	background-color: #feff95;
+	border:5px solid #000000;
 	padding: 10px;
-	color: #335500;
-	font-size: 12px;
-	background: #e5e5e5;
-	text-align: left;
-	border: 1px solid #666;
-	z-index: 0;
+	font-family: 'Segoe UI';
+	font-size: 18px;
+	font-weight: bolder;
+	vertical-align: middle;
+	color: #351b02;
+	margin: 10px 10px 10px 10px;
+	width: 830px;
+	float: left;
+	text-decoration: none;
+}
+
+#kegiatan .list {
+	background-color: #feff95;
+	display: block;
+	padding: 12px;
+	font-family: 'Segoe UI';
+	font-size: 30px;
+	text-align: center;
+	vertical-align: middle;
+	color: #351b02;
+	margin: 0 20px 0 0;
+	width: 350px;
+	height: 75px;
+	float: left;
+	text-decoration: none;
+	border-bottom-color: #fe9227;
+	border-bottom-width: 5px;
+	border-bottom-style: solid;
+
+}
+
+#kegiatan li .status {
+	font-size: 14px;
+}
+
+#kegiatan li form label {
+	width: 80px;
+	float: left;
+}
+
+#kegiatan li a .hapus {
+	background-color: red;
+	width: 35px;
+	height: 10px;
+	float: right;
+	text-decoration: none;
+	position: relative;
+	margin-top: -95px;
 }
 
 .user {
+
 display: block;
 list-style: none;
 width: 880px;
@@ -991,10 +1014,4 @@ background-color:blue;
 }
 .hidden{
 display:none;
-}
-#profPic{
-float:left;
-margin-right:10px;
-height:35px;
-width:35px;
 }
