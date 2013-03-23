@@ -11,7 +11,7 @@ if((isset($_GET['filter'])) && (isset($_GET['keyword'])) && $_GET['keyword'] != 
 	$akhir = (10 * $i) - 1 ;
 	$db=new DB();
 	$queryUser = "SELECT username FROM pengguna WHERE username LIKE('" .$keyword. "%') ORDER BY username LIMIT {$awal},{$akhir};";
-	$queryAllTugas = "SELECT IDTask, name, deadline, status, username, tag FROM `tugas` WHERE name LIKE '%$keyword%' OR tag LIKE '%$keyword%' LIMIT {$awal},{$akhir};";
+	$queryAllTugas = "SELECT IDTask, name, deadline, stat, username, tag FROM `tugas` WHERE name LIKE '%$keyword%' OR tag LIKE '%$keyword%' LIMIT {$awal},{$akhir};";
 	$queryKategori = "SELECT judul FROM kategori WHERE judul LIKE('" .$keyword. "%') ORDER BY judul LIMIT {$awal},{$akhir};";
 	if($filter == "semua"){
 		$res = $db->query($queryAllTugas);
@@ -25,11 +25,11 @@ if((isset($_GET['filter'])) && (isset($_GET['keyword'])) && $_GET['keyword'] != 
 				$display .=	"<div>";
 				if($user == "{$db->Record['username']}"){
 					$display .= "<input type='checkbox' value='None' id='checklist{$db->Record['IDTask']}' name='check' onchange='changevalues({$db->Record['IDTask']})'" ;
-					if($db->Record['status'] == 1)
+					if($db->Record['stat'] == 1)
 						$display .= "checked";
 					$display .= "/>";
 				}
-				$display .= "<a class='list' href='taskdetails.php'><span>Tag: {$db->Record['tag']}</span>{$db->Record['name']}</a>";
+				$display .= "<a class='list' href='taskdetails.php?id={$db->Record['IDTask']}'><span>Tag: {$db->Record['tag']}</span>{$db->Record['name']}</a>";
 				$display .=	"<p>{$db->Record['deadline']}</p>";
 				$display .=	"</div>";
 			}
@@ -108,7 +108,7 @@ if((isset($_GET['filter'])) && (isset($_GET['keyword'])) && $_GET['keyword'] != 
 				$display .=	"<div>";
 				if($user == "{$db->Record['username']}"){
 					$display .= "<input type='checkbox' value='None' id='checklist{$db->Record['IDTask']}' name='check' onchange='changevalues({$db->Record['IDTask']})'" ;
-					if($db->Record['status'] == 1)
+					if($db->Record['stat'] == 1)
 						$display .= "checked";
 					$display .= "/>";
 				}
