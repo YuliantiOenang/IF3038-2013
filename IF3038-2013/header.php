@@ -47,8 +47,9 @@
 							<option value="judul">Judul Kategori</option>
 							<option value="task">Task</option>
 						</select>
-						<input name="keyword" class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query">
+						<input name="keyword" id="keyword" class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query" onKeyUp="searchSuggestKeyword()">
 						
 					</form>
+					<div id="layer"></div>
 				</div>
 			</div>

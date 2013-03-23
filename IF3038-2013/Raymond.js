@@ -110,6 +110,43 @@ function setSearch(value) {
 	document.getElementById('layer1').className = "hidden";
 }
 
+function searchSuggestKeyword() {
+	if (xmlHttpReq.readyState == 4 || xmlHttpReq.readyState == 0) {
+		var str = escape(document.getElementById('keyword').value);
+		xmlHttpReq.open("GET", 'GetAll.php?nama=' + str, true);
+		xmlHttpReq.onreadystatechange = handleSearchSuggestKeyword; 
+		xmlHttpReq.send(null);
+	}		
+}
+function handleSearchSuggestKeyword() {
+	if (xmlHttpReq.readyState == 4) {
+		var ss = document.getElementById('layer');
+		var str =xmlHttpReq.responseText.split("\n");
+		if(str.length==1)
+		{
+			document.getElementById('layer').className = "hidden";
+		}
+		else
+		ss.className = 'suggestBox';
+		ss.innerHTML = '';
+		for(i=0; i < str.length - 1; i++) {
+			//Build our element string.  This is cleaner using the DOM, but
+			//IE doesn't support dynamically added attributes.
+			var suggest = '<div onmouseover="javascript:suggestOver(this);" ';
+			suggest += 'onmouseout="javascript:suggestOut(this);" ';
+			suggest += 'onclick="javascript:setSearchKeyword(this.innerHTML);" ';
+			suggest += 'class="small">' + str[i] + '</div>';
+			ss.innerHTML += suggest;
+		}
+	}
+}
+//Click function
+function setSearchKeyword(value) {
+	document.getElementById('keyword').value = value;
+	document.getElementById('layer').innerHTML = '';
+	document.getElementById('layer').className = "hidden";
+}
+
 /* SEARCH*/
 function doSearch(filter, keyword, i, user) {
 	if (xmlHttpReq.readyState == 4 || xmlHttpReq.readyState == 0) {
