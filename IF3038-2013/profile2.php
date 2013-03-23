@@ -20,9 +20,9 @@ include 'connectDB.php';
 		$this->birthday=$array['birthday'];
 		$this->avatar=$array['avatar'];
 		$this->password=$array['password'];
-		$hasil=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\'yulianti\' and stat=1');
+		$hasil=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\''.$user.'\' and stat=1');
 		$this->tugasSelesai=$hasil;
-		$hasil2=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\'yulianti\' and stat=0');
+		$hasil2=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\''.$user.'\' and stat=0');
 		$this->tugasBelumSelesai=$hasil2;
 		
 	}
@@ -55,7 +55,7 @@ include 'connectDB.php';
 		
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		session_start();
-		$profile=new profile();
+		$profile=new profile($_SESSION['bananauser']);
 		$namalengkap=$_POST['namalengkap'];
 		$birthday=$_POST['birthday'];
 		$password=$_POST['password'];
@@ -78,7 +78,7 @@ include 'connectDB.php';
 			$profile->password=$password;
 			if($avatar=="")
 			{
-				$query="UPDATE pengguna SET fullname='$namalengkap',birthday='$birthday', password='$password' WHERE username='yulianti'";
+				$query='UPDATE pengguna SET fullname=\''.$namalengkap.'\',birthday=\''.$birthday.'\', password=\''.$password.'\' WHERE username=\''.$_SESSION['bananauser'].'\'';
 			}
 			else
 			{
@@ -92,7 +92,7 @@ include 'connectDB.php';
 					$_SESSION['uploadsukses']=0;
 				}
 				$profile->avatar="avatar/".$avatar;
-				$query="UPDATE pengguna SET fullname='$namalengkap',birthday='$birthday', password='$password', avatar='$profile->avatar' WHERE username='yulianti'";
+				$query='UPDATE pengguna SET fullname=\''.$namalengkap.'\',birthday=\''.$birthday.'\', password=\''.$password.'\', avatar=\''.$profile->avatar.'\' WHERE username=\''.$_SESSION['bananauser'].'\'';
 			}
 			
 			
@@ -109,7 +109,6 @@ include 'connectDB.php';
 		}
 		
 		header('location:profile.php');
-		session_destroy();
 	}
 		
 	

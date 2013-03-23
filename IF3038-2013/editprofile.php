@@ -1,10 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title> Banana Board - Edit Profile </title>
-		<link rel="stylesheet" style="text/css" href="style.css">
-        <script src="editprofile.js" type="text/javascript" language="javascript"> </script>
+		<title> Banana Board - Home </title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="editprofile.js" type="text/javascript" language="javascript"> </script>
+		<script src="Raymond.js" type="text/javascript" language="javascript"> </script>
+		<script src="datetimepicker_css.js" type="text/javascript" language="javascript"> </script>
+		
 	</head>
 
 <body>
@@ -20,24 +22,45 @@ session_start();
 	}
 ?>
 <?php include 'profile2.php'; ?>
-	<div id="content">
-		<div id="header">
-			<div id="logo">
-				<a href="home.php" class="header">
-				<img src="image/logo.png"/></a>
+<?php
+		if((isset($_POST['filter'])) && (isset($_POST['keyword'])) && !empty($_POST['keyword']) && $_POST['keyword'] != "Enter search query"){
+		$filter = $_POST['filter'];
+		$keyword = $_POST['keyword'];
+		$i = 1;
+		echo"<script type='text/javascript' language='javascript'> var i = 1;	</script>";
+		echo("<body onLoad=\"doSearch('{$filter}', '{$keyword}', {$i}, '{$_SESSION['bananauser']}')\">");
+		}
+		else
+		{
+		echo("<body>");
+		}
+	?>
+	<div id="content">	
+			<div id="header">
+				<div id="logo">
+					<img src="image/logo.png"/>
+				</div>
+				<div id="menu">
+					<ul>
+						<li> <a href="home.php"> DASHBOARD </a> </li>
+						<li> <a href="profile.php"> PROFILE </a> </li>
+						<li> <a href="logout.php"> LOGOUT </a> </li>
+					</ul>
+					<form method="post" action="searchResult.php">
+						
+						<img src="image/avatar.jpg" id="profPic"></img>
+						<select name="filter">
+							<option value="semua">Semua</option>
+							<option value="username">User Name</option>
+							<option value="judul">Judul Kategori</option>
+							<option value="task">Task</option>
+						</select>
+						<input name="keyword" id="keyword" class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query" onKeyUp="searchSuggestKeyword()">
+						<input id="searchbutton" type="submit" value="">
+					</form>
+					<div id="layer"></div>
+				</div>
 			</div>
-			<div id="menu">
-				<ul>
-					<li> <a href="home.php"> DASHBOARD </a> </li>
-					<li> <a href="profile.php"> PROFILE </a> </li>
-					<li> <a href="index.php"> LOGOUT </a> </li>
-				</ul>
-				<form action="index.html">
-					<input class="box" type="text" onClick="this.value='';" onFocus="this.select()" onBlur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query">
-					<input class="button" type="submit" value="">
-				</form>
-			</div>          
-		</div>
     
 		<!-- Foto profile -->
 		<div id="isi">

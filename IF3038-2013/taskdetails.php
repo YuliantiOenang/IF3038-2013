@@ -18,6 +18,14 @@
 		else
 		{
 				$username=$_SESSION['bananauser'];
+				if($_GET['id'])
+				{
+					$_SESSION['id']=$_GET['id'];
+				}
+				else
+				{
+					header('location:index.php');
+				}
 		}
 		if(isset($_GET['id']))
 		{
@@ -235,31 +243,6 @@
 				Yulianti - Raymond - Devin</p>			
 			</div>
         </div>
-         <script	type="text/javascript">
-			var temp = document.getElementById("commentform");
-			temp.onsubmit = function()
-			{
-				postComment();
-				return false;
-			}
-			
-			
-			
-			function postComment()
-			{
-				var form = document.getElementById("commentform");
-			
-				var a = document.getElementById("commentbox");
-				var b = document.getElementById("commentfield")
-				a.value += "User: " + b.value + "\n\n";
-				
-				b.value = "";
-			}
-			
-			
-			
-			
-		</script>
         
     </body>
 </html>
