@@ -5,6 +5,8 @@
 		<title> Banana Board - Profile </title>
 		<link rel="stylesheet" style="text/css" href="style.css">
         <script src="editprofile.js" type="text/javascript" language="javascript"> </script>
+		<script src="Raymond.js" type="text/javascript" language="javascript"> </script>
+		<script src="datetimepicker_css.js" type="text/javascript" language="javascript"> </script>
 	</head>
 
 <body>
@@ -12,6 +14,7 @@
 	<div id="content">
     <?php
 	session_start();
+	$_SESSION['bananauser']='yuli';
 	if(isset ($_SESSION['bananauser']))
 		{
 			if(!isset($_GET['username']))
@@ -58,30 +61,51 @@
 	}
 	
 	?>
+	<?php
+		if((isset($_POST['filter'])) && (isset($_POST['keyword'])) && !empty($_POST['keyword']) && $_POST['keyword'] != "Enter search query"){
+		$filter = $_POST['filter'];
+		$keyword = $_POST['keyword'];
+		$i = 1;
+		echo"<script type='text/javascript' language='javascript'> var i = 1;	</script>";
+		echo("<body onLoad=\"doSearch('{$filter}', '{$keyword}', {$i}, '{$_SESSION['bananauser']}')\">");
+		}
+		else
+		{
+		echo("<body>");
+		}
+	?>
 		<div id="header">
-			<div id="logo">
-				<a href="home.php" class="header">
-				<img src="image/logo.png"/></a>
+				<div id="logo">
+					<img src="image/logo.png"/>
+				</div>
+				<div id="menu">
+					<ul>
+						<li> <a href="home.php"> DASHBOARD </a> </li>
+						<li> <a href="profile.php"> PROFILE </a> </li>
+						<li> <a href="logout.php"> LOGOUT </a> </li>
+					</ul>
+					<form method="post" action="searchResult.php">
+						<input class="button" type="submit" value="">
+						<img src="image/avatar.jpg" id="profPic"></img>
+						<select name="filter">
+							<option value="semua">Semua</option>
+							<option value="username">User Name</option>
+							<option value="judul">Judul Kategori</option>
+							<option value="task">Task</option>
+						</select>
+						<input name="keyword" id="keyword" class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query" onKeyUp="searchSuggestKeyword()">
+						
+					</form>
+					<div id="layer"></div>
+				</div>
 			</div>
-			<div id="menu">
-				<ul>
-					<li> <a href="home.php"> DASHBOARD </a> </li>
-					<li> <a href="profile.php"> PROFILE </a> </li>
-					<li> <a href="index.php"> LOGOUT </a> </li>
-				</ul>
-				<form action="index.html">
-					<input class="box" type="text" onClick="this.value='';" onFocus="this.select()" onBlur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query">
-					<input class="button" type="submit" value="">
-				</form>
-			</div>          
-		</div>
     
 			<!-- Foto profile -->
 		<div id="isi">
 			<div id="leftsidebar">
 				
-			<img id="leftsidebar" class="foto" src=<?$profile=new profile($username);echo $profile->avatar; ?> alt="Smiley face"/>
-			<b><?$profile=new profile($username);echo $profile->username;?></b>
+			<img id="leftsidebar" class="foto" src=<?php $profile=new profile($username);echo $profile->avatar; ?> alt="Smiley face"/>
+			<b><?php $profile=new profile($username);echo $profile->username;?></b>
 			</div>
 			
 			<div id="rightsidebar">
@@ -89,25 +113,25 @@
 					<h1 align="left">Profile</h1>
 					<li>
 						<label>Nama Lengkap:</label>
-						<p id="namalengkap" class="prof1"><?$profile=new profile($username);echo $profile->fullname;?></p>
+						<p id="namalengkap" class="prof1"><?php $profile=new profile($username);echo $profile->fullname;?></p>
 					</li>
 					<li>
 						<label>Email:</label>
-						<p class="prof1"><?$profile=new profile($username);echo $profile->email;?></p>
+						<p class="prof1"><?php $profile=new profile($username);echo $profile->email;?></p>
 					</li>
                     <li>
 						<label>Tanggal Lahir:</label>
-						<p class="prof1"><?$profile=new profile($username);echo $profile->birthday;?></p>
+						<p class="prof1"><?php $profile=new profile($username);echo $profile->birthday;?></p>
 					</li>
 					<li>
 						<label>On going tasks:</label>
-						<p class="prof1"><?$profile=new profile($username);echo $profile->getTugasBelumSelesai();?></p>
+						<p class="prof1"><?php $profile=new profile($username);echo $profile->getTugasBelumSelesai();?></p>
 					</li>
 					<li>
 						<label>Tasks done:</label>
-						<p class="prof1"><?$profile=new profile($username);echo $profile->getTugasSelesai();?></p>
+						<p class="prof1"><?php $profile=new profile($username);echo $profile->getTugasSelesai();?></p>
 					</li>
-					<?
+					<?php
 						if($editable==true)
 						{
 							print "<li>";

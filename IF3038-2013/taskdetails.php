@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Banana Board - Your Task's Details</title>		
-        <link rel="stylesheet" type="text/css" href="style.css"> 
-		<script type="text/javascript" src="datetimepicker.js"></script>
-		<script type="text/javascript" src="taskdetails.js"></script>
-		<script type="text/javascript" src="raymond.js"></script>
-    </head>
+		<title> Banana Board - Home </title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="Dashboard.js" type="text/javascript" language="javascript"> </script>
+		<script src="Raymond.js" type="text/javascript" language="javascript"> </script>
+		<script src="datetimepicker_css.js" type="text/javascript" language="javascript"> </script>
+	</head>
 
     <body>
-	<?
+	<?php
 		session_start();
+		$_SESSION['bananauser']='yuli';
 		if(!isset ($_SESSION['bananauser']))
-		{
+		{($_SESSION['bananauser']
 			header('location:index.php');
 		}
 		else
@@ -21,25 +21,46 @@
 				$username=$_SESSION['bananauser'];
 		}
 	?>
+	<?php
+		if((isset($_POST['filter'])) && (isset($_POST['keyword'])) && !empty($_POST['keyword']) && $_POST['keyword'] != "Enter search query"){
+		$filter = $_POST['filter'];
+		$keyword = $_POST['keyword'];
+		$i = 1;
+		echo"<script type='text/javascript' language='javascript'> var i = 1;	</script>";
+		echo("<body onLoad=\"doSearch('{$filter}', '{$keyword}', {$i}, '{$_SESSION['bananauser']}')\">");
+		}
+		else
+		{
+		echo("<body>");
+		}
+	?>
     <?php include 'taskdetailscontroller.php'; ?>
         <div id="content">
-            <div id="header">
-                <div id="logo">
-                    <a href="home.php" class="header">
-					<img src="image/logo.png"/></a>
-                </div>
-                <div id="menu">
-                    <ul>
-                        <li> <a href="home.php"> DASHBOARD </a> </li>
-                        <li> <a href="profile.php"> PROFILE </a> </li>
-                        <li> <a href="index.php"> LOGOUT </a> </li>
-                    </ul>
-                    <form action="index.html">
-                        <input class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query">	
-                        <input class="button" type="submit" value="">
-                    </form>
-                </div>
-            </div>
+           <div id="header">
+				<div id="logo">
+					<img src="image/logo.png"/>
+				</div>
+				<div id="menu">
+					<ul>
+						<li> <a href="home.php"> DASHBOARD </a> </li>
+						<li> <a href="profile.php"> PROFILE </a> </li>
+						<li> <a href="logout.php"> LOGOUT </a> </li>
+					</ul>
+					<form method="post" action="searchResult.php">
+						<input class="button" type="submit" value="">
+						<img src="image/avatar.jpg" id="profPic"></img>
+						<select name="filter">
+							<option value="semua">Semua</option>
+							<option value="username">User Name</option>
+							<option value="judul">Judul Kategori</option>
+							<option value="task">Task</option>
+						</select>
+						<input name="keyword" id="keyword" class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query" onKeyUp="searchSuggestKeyword()">
+						
+					</form>
+					<div id="layer"></div>
+				</div>
+			</div>
             
 			<div id="isi">
 				<div id="leftsidebar">
@@ -52,11 +73,11 @@
 							<h1>Details</h1>
 							<li>
 								<label for="tugas">Nama Tugas</label>
-								<div class="text"><?$task=new task();echo $task->name;?></div>
+								<div class="text"><?php$task=new task();echo $task->name;?></div>
 							</li>
                             <li>
 								<label for="tugas">Status</label>
-								<div class="text"><?echo $task->status;?></div>
+								<div class="text"><?phpecho $task->status;?></div>
                                 <form method="post" action="taskdetailscontroller.php">
                                 <button>ubah status</button>
                                 </form>
@@ -65,7 +86,7 @@
 								<label for="attach">Attachment</label>
 								<br>
 								<br>
-                                <?
+                                <?php
                                  while($info = mysql_fetch_array($task->attachment)) 
 								 { 
 									$array= explode(".", $info['lampiran']);
@@ -87,13 +108,13 @@
 							</li>
 							<li>
 								<label for="deadline">Deadline</label>
-								<input id="deadline" type="text" size="25"/ value="<?$array= explode("-",$task->deadline);echo $array[2]."-".$array[1]."-".$array[0];?>"readonly>
+								<input id="deadline" type="text" size="25"/ value="<?php$array= explode("-",$task->deadline);echo $array[2]."-".$array[1]."-".$array[0];?>"readonly>
 								<a id="tanggal" href="javascript:NewCal('deadline','ddmmyyyy')" onclick="return false"><img src="image/cal.gif" alt="Pick a date"/></a>
 							</li>
 							<li>
 								<label for="assignee">Assignee</label>
 								<div id="anggota">
-								<?
+								<?php
 								$i=1;
 								$num_rows = mysql_num_rows($task->assignee);
 								if($num_rows==0)
@@ -122,7 +143,7 @@
 							<li>
 								<label>Tag</label>
 								<div id="data">
-								<?
+								<?php
 									$pieces = explode(",", $task->tag);
 									for($i=0;$i<count($pieces);$i++)
 									{
@@ -140,9 +161,9 @@
 								</div>
 								<input id="inputtag" type="text" style="visibility:hidden;" placeholder="example1,example2"></input>
 							</li>
-							<button id="edit" name="edit" type="button" onclick="editTask(<?echo $task->jumlahA?>)"><b>Edit</b></button><br>
+							<button id="edit" name="edit" type="button" onclick="editTask(<?phpecho $task->jumlahA?>)"><b>Edit</b></button><br>
 						<div class="task">
-						<?
+						<?php
 							print "<li>";
 								print "<label id=\"a\"  for=\"komentar\">Komentar(".$task->jumlah.")</label>";
 								print
@@ -191,7 +212,7 @@
 							<form id="commentform">
 								<input class="task" id="commentfield" name="commentfield" type="text" size="1000"/> 
 
-								<input id="commentbutton" name="commentbutton" type="submit" value="Comment" onClick="addcomment(<?echo "'".$username."'"?>);return false;"/>
+								<input id="commentbutton" name="commentbutton" type="submit" value="Comment" onClick="addcomment(<?phpecho "'".$username."'"?>);return false;"/>
 							</form>
 						</div>
 						

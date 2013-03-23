@@ -20,9 +20,9 @@ include 'connectDB.php';
 		$this->birthday=$array['birthday'];
 		$this->avatar=$array['avatar'];
 		$this->password=$array['password'];
-		$hasil=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\'yulianti\' and status=1');
+		$hasil=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\'yulianti\' and stat=1');
 		$this->tugasSelesai=$hasil;
-		$hasil2=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\'yulianti\' and status=0');
+		$hasil2=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\'yulianti\' and stat=0');
 		$this->tugasBelumSelesai=$hasil2;
 		
 	}
