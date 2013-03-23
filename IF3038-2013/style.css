@@ -1015,3 +1015,9 @@ background-color:blue;
 .hidden{
 display:none;
 }
+#profPic{
+float:left;
+margin-right:10px;
+height:35px;
+width:35px;
+}
