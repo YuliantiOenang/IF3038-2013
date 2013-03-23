@@ -26,9 +26,9 @@ class DashboardWriter {
 	
 	public function writeTask($user) {
 		$result = '';
-		$tuples = $this->db->query('SELECT tugas.IDTask AS ID, name, deadline, stat, tag, tugas.username AS pembuat, penugasan.username
+		$tuples = $this->db->query('SELECT tugas.IDTask AS ID, name, deadline, stat, tag, penugasan.username
 			FROM tugas INNER JOIN penugasan USING (IDTask)
-			WHERE penugasan.username="' . $user . '" OR tugas.username="' . $user . '"');
+			WHERE penugasan.username="' . $user . '"');
 		while($array = mysql_fetch_assoc($tuples)) {
 			$result = $result . '<id>' . $array['ID'] . '</id>';
 			$result = $result . '<nama>' . $array['name'] . '</nama>';
@@ -36,6 +36,19 @@ class DashboardWriter {
 			$result = $result . '<status>' . $array['stat'] . '</status>';
 			$result = $result . '<tag>' . $array['tag'] . '</tag>';
 			if($array['pembuat'] == $user)
+				$result = $result . '<canerase>true</canerase>';
+			else
+				$result = $result . '<canerase>false</canerase>';
+		}
+		$tuples = $this->db->query('SELECT IDTask, name, deadline, stat, tag, username
+			FROM tugas WHERE username="' . $user . '"');
+		while($array = mysql_fetch_assoc($tuples)) {
+			$result = $result . '<id>' . $array['IDTask'] . '</id>';
+			$result = $result . '<nama>' . $array['name'] . '</nama>';
+			$result = $result . '<deadline>' . $array['deadline'] . '</deadline>';
+			$result = $result . '<status>' . $array['stat'] . '</status>';
+			$result = $result . '<tag>' . $array['tag'] . '</tag>';
+			if($array['username'] == $user)
 				$result = $result . '<canerase>true</canerase>';
 			else
 				$result = $result . '<canerase>false</canerase>';

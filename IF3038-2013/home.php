@@ -42,16 +42,6 @@
 				<div id="rightsidebar">
 					<a href='MakeTask.php' id='addtask'><i></i></a>
 					<ul id="kegiatan">
-						<li>
-							<a class='list' href="taskdetails.php">tugas1</a>
-							<form>
-								<label for='deadline'>Deadline</label>: 22-02-2012<br />
-								<label for='tag'>Tag</label>: kelompok, 3 orang<br />
-								<label for='status'>Status</label>: Belum Selesai <br />
-								<input type="checkbox"><i class='status'> Buat selesai?</i></input>
-							</form>
-							<a href=''><div class='hapus'></div></a>
-						</li>
 					</ul>
 				</div>
 			
