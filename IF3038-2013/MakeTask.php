@@ -11,7 +11,7 @@
 		<div id="isi">
 			<div id="leftsidebar">
 					<b>CREATE NEW TASK</b>
-					<img src="leftmenu.png"/>
+					<img src="image/leftmenu.png"/>
 			</div>
 		
 			<div id="rightsidebar">
@@ -38,7 +38,6 @@
 							<li>
 								<label for="asignee">Assignee</label>
 								<input id="asignee" name="asignee" type="text" onKeyUp="searchSuggest()"/>
-								<span>*dipisahkan dengan ","</span>
 							</li>
 							<li id="layer1">
 							</li>
@@ -54,6 +53,7 @@
 							</li>
 							<li>
 								<input type="text" name="kategori" class="hidden" value="<?php echo $kategori ?>"/>
+								<input type="text" name="user" class="hidden" value="<?php echo $_SESSION['bananauser'];?>"/>
 								<button class="task" name="submitbutton" type="submit"><b>Submit</b></button>
 							</li>
 						</ul>

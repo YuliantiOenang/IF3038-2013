@@ -3,10 +3,10 @@ require_once('connectDB.php');
 
 if (isset($_POST['tugas'])){
 	$db = new DB();
-	$username = "yuli"; //NEED!!!
+	$username = $_POST['user'];
 	$nama = mysql_real_escape_string($_POST['tugas']);
 	$assignee = mysql_real_escape_string($_POST['asignee']);
-	echo($assignee);
+	//echo($username);
 	$tag = mysql_real_escape_string($_POST['tag']);
 	$deadline = mysql_real_escape_string($_POST['deadline']);
 	$kategori = $_POST['kategori'];
@@ -41,7 +41,7 @@ if (isset($_POST['tugas'])){
 	$insertPenugasan = "INSERT INTO penugasan (`username`, `IDTask`) VALUES ('{$assignee}', {$db->Record[0]})";
 	$db->query($insertPenugasan);
 	
-	//header('Location:taskdetails.php');
+	header('Location:taskdetails.php');
 }
 else{
 	echo("Unauthorized access!!");
