@@ -11,14 +11,14 @@ class DashboardWriter {
 	
 	public function writeCategory($user) {
 		$result = '';
-		$tuples = $this->db->query('SELECT kategori.IDKategori AS id, judul FROM kategori INNER JOIN tugas USING(IDKategori) INNER JOIN penugasan USING(IDtask) WHERE penugasan.username="' . $user . '"');
+		$tuples = $this->db->query('SELECT kategori.IDKategori AS id, judul FROM kategori INNER JOIN usercateg USING(IDKategori) WHERE usercateg.username="' . $user . '"');
 		while($array = mysql_fetch_assoc($tuples)) {
 			$result = $result . '<idkategori>' . $array['id'] . '</idkategori>';
 			$result = $result . '<kategori>' . $array['judul'] . '</kategori>';
 		}
-		$tuples = $this->db->query('SELECT kategori.IDKategori AS id, judul FROM kategori WHERE username="' . $user . '"');
+		$tuples = $this->db->query('SELECT IDKategori, judul FROM kategori WHERE username="' . $user . '"');
 		while($array = mysql_fetch_assoc($tuples)) {
-			$result = $result . '<idkategori>' . $array['id'] . '</idkategori>';
+			$result = $result . '<idkategori>' . $array['IDKategori'] . '</idkategori>';
 			$result = $result . '<kategori>' . $array['judul'] . '</kategori>';
 		}
 		echo $result;

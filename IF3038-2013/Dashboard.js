@@ -99,6 +99,10 @@ function deleteTask(id) {
 	window.xmlhttp.send(query);
 }
 
+function selectCategory(id) {
+	
+}
+
 function addCategory() {
 	window.xmlhttp = getXmlHttpRequest();
 	if(!window.xmlhttp)
@@ -109,12 +113,12 @@ function addCategory() {
 		if(window.xmlhttp.readyState == 4 && window.xmlhttp.status == 200) {
 			var response = window.xmlhttp.responseText;
 			if(response == '1')
-				alert('Tugas berhasil dihapus');
+				alert('Kategori berhasil ditambahkan');
 			else
-				alert('Tugas gagal dihapus');
-			window.location.replace('home.php');
+				alert('Kategori gagal ditambahkan');
 		}
 	};
 	window.xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 	window.xmlhttp.send(query);
+	window.location.replace('home.php');
 }	
