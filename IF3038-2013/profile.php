@@ -14,14 +14,20 @@
 	session_start();
 	if(isset ($_SESSION['bananauser']))
 		{
-			if(isset($_GET['username'])==$_SESSION['bananauser'] || !isset($_GET['username']))
+			if(!isset($_GET['username']))
 			{
 				$username=$_SESSION['bananauser'];
 				$editable=true;
 			}
-			else if(isset($_GET['username'])!=$_SESSION['bananauser'])
+			else if($_GET['username']==$_SESSION['bananauser'])
+			{
+				$username=$_SESSION['bananauser'];
+				$editable=true;
+			}
+			else if(isset($_GET['username']) && $_GET['username']!=$_SESSION['bananauser'])
 			{
 				$username=$_GET['username'];
+				unset($_GET['username']);
 				$editable=false;
 			}
 			

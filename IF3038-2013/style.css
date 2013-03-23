@@ -624,7 +624,7 @@ border-bottom-style: solid;
 	z-index: 0;
 }
 
-.user {
+.user 
 display: block;
 list-style: none;
 width: 880px;
@@ -826,7 +826,7 @@ border-radius: 5px;
 #wrapper-left
 {
 	float: left;
-	width: 500px;
+	width: 780px;
 	margin-left: 40px;
 	display: inline;
 }
@@ -937,6 +937,30 @@ font-family: 'segoe ui';
 font-size: 12px;
 clear: both;
 }
+.headerComment{
+background: #fe9227;
+height:42px;
+position:block;
+z-index:1;
+}
+.username{
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+font-size: 27px;
+float:left;
+}
+.waktu{
+left:800px;
+position:absolute;
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+font-size: 27px;
+float:left;
+}
+.remove{
+left:1100px;
+position:absolute;
+font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+font-size: 18px;
+}
 /*-------------- FOOTER --------------*/
 #footer {
 background: #351b02;	
@@ -997,4 +1021,27 @@ float:left;
 margin-right:10px;
 height:35px;
 width:35px;
+}
+.text{
+margin-top:3px;
+padding-top:3px;
+}
+.task a{
+	padding: 12px 0 12px 0;
+color: #fcff00;
+padding-top:3px;
+}
+.task a:hover {
+color: rgb(255, 255, 255);
+}
+#removeU{
+	position:relative;
+	left:3px;
+	visibility:hidden;
+}
+.a{
+padding: 12px 0 12px 0;
+padding-top: 3px;
+text-align: -webkit-match-parent;
+list-style-type: none;
 }
