@@ -49,7 +49,7 @@
 							<li>
 								<label for="deadline">Deadline</label>
 									<input id="demo1" name="deadline" type="text" size="25"/>
-									<a href="javascript:NewCssCal('demo1','yyyymmdd')"><img src="image/cal.gif" alt="Pick a date"/></a>
+									<a href="javascript:NewCssCal('demo1','ddmmyyyy')"><img src="image/cal.gif" alt="Pick a date"/></a>
 							</li>
 							<li>
 								<input type="text" name="kategori" class="hidden" value="<?php echo $kategori ?>"/>

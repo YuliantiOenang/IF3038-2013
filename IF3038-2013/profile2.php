@@ -1,4 +1,4 @@
-<?
+<?php
 include 'connectDB.php';
 	class profile{
 	var $username;
@@ -6,8 +6,10 @@ include 'connectDB.php';
 	var $email;
 	var $birthday;
 	var $avatar;
-	var $tugasSelesai;
-	var $tugasBelumSelesai;
+	var $tugasSelesai1;
+	var $tugasSelesai2;
+	var $tugasBelumSelesai1;
+	var $tugasBelumSelesai2;
 	var $password;
 	function __construct($user){
 		$db=new DB();
@@ -20,15 +22,25 @@ include 'connectDB.php';
 		$this->birthday=$array['birthday'];
 		$this->avatar=$array['avatar'];
 		$this->password=$array['password'];
-		$hasil=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\''.$user.'\' and stat=1');
-		$this->tugasSelesai=$hasil;
-		$hasil2=$db->query('SELECT name FROM tugas natural join  penugasan WHERE username=\''.$user.'\' and stat=0');
-		$this->tugasBelumSelesai=$hasil2;
+		$hasil=$db->query ('SELECT name FROM tugas Where IDTask=(SELECT IDTask FROM  penugasan WHERE username=\''.$user.'\') and stat=1');
+		$this->tugasSelesai1=$hasil;
+		$hasil=$db->query ('SELECT name FROM tugas Where  username=\''.$user.'\' and stat=1');
+		$this->tugasSelesai2=$hasil;
+		$hasil=$db->query ('SELECT name FROM tugas Where IDTask=(SELECT IDTask FROM  penugasan WHERE username=\''.$user.'\') and stat=0');
+		$this->tugasBelumSelesai1=$hasil;
+		$hasil=$db->query ('SELECT name FROM tugas Where  username=\''.$user.'\' and stat=0');
+		$this->tugasBelumSelesai2=$hasil;
 		
 	}
 	function getTugasSelesai(){
 	$list="";
-		while($info = mysql_fetch_array( $this->tugasSelesai )) 
+		while($info = mysql_fetch_array( $this->tugasSelesai1 )) 
+		{ 
+		 Print $info['name'] . "<br>";
+		 $list .= '"'.$info['name'].'", ';
+		} 
+	$list="";
+		while($info = mysql_fetch_array( $this->tugasSelesai2 )) 
 		{ 
 		 Print $info['name'] . "<br>";
 		 $list .= '"'.$info['name'].'", ';
@@ -37,7 +49,12 @@ include 'connectDB.php';
 	
 	function getTugasBelumSelesai(){
 	$list="";
-		while($info = mysql_fetch_array( $this->tugasBelumSelesai )) 
+		while($info = mysql_fetch_array( $this->tugasBelumSelesai1 )) 
+		{ 
+		 Print $info['name'] . "<br>";
+		} 
+	$list="";
+		while($info = mysql_fetch_array( $this->tugasBelumSelesai2 )) 
 		{ 
 		 Print $info['name'] . "<br>";
 		} 

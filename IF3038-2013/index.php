@@ -11,7 +11,7 @@
 		<title>Banana Board - Your Online Do List</title>		
 		<link rel="stylesheet" href="style.css" type="text/css">
 		<script src="index.js" type="text/javascript" language="javascript"></script>
-		<script type="text/javascript" src="datetimepicker.js"></script>
+		<script src="datetimepicker_css.js" type="text/javascript" language="javascript"> </script>
 	</head>
 	
 	<body onload='initindex()'>
@@ -43,42 +43,42 @@
 					<li>
 						<label for="username">Username:</label>
 						<input type="text" name='username' id="txUsername" onkeyup="vdUsername()" oninput="vdUsername()" onpaste="vdUsername()"/>
-						<img src="Image/false.png" id="icoUsername" alt="Not Accepted" /><br />
+						<img src="image/false.png" id="icoUsername" alt="Not Accepted" /><br />
 						<span>* Minimal 5 karakter</span>
 					</li>
 					<li>
 						<label for="password">Password:</label>
 						<input type="password" name='pass' id="txPassword" onkeyup="vdPassword()" oninput="vdPassword()" onpaste="vdPassword()"/>
-						<img src="Image/false.png" id="icoPassword" alt="Not Accepted" /><br />
+						<img src="image/false.png" id="icoPassword" alt="Not Accepted" /><br />
 						<span>* Minimal 8 karakter, tidak boleh sama dengan username maupun email</span>
 					</li>		
 					<li>
 						<label for="confirmpass">Confirmed Password:</label>
 						<input type="password" id="txConfirmPassword" onkeyup="vdConfirmPassword()" oninput="vdConfirmPassword()" onpaste="vdConfirmPassword()"/>
-						<img src="Image/false.png" id="icoConfirmPassword" alt="Not Accepted" /><br />
+						<img src="image/false.png" id="icoConfirmPassword" alt="Not Accepted" /><br />
 						<span>* Harus sama dengan password</span>
 					</li>
 					<li>
 						<label for="namalengkap">Nama Lengkap:</label>
 						<input type="text" name='name' id="txName" onkeyup="vdName()" oninput="vdName()" onpaste="vdName()"/>
-						<img src="Image/false.png" id="icoName" alt="Not Accepted" /><br />
+						<img src="image/false.png" id="icoName" alt="Not Accepted" /><br />
 						<span>* Minimal 2 kata (nama depan dan nama belakang)</span>
 					</li>	
 					<li>
 						<label for="tgllahir">Tanggal Lahir:</label>
 						<input id="tgllahir" name='birth' type="text" size="25"/ readonly>
-						<a href="javascript:NewCal('tgllahir','ddmmyyyy')"><img src="image/cal.gif" alt="Pick a date"/></a>
+						<a href="javascript:NewCssCal('tgllahir','ddmmyyyy')"><img src="image/cal.gif" alt="Pick a date"/></a>
 					</li>
 					<li>
 						<label for="email">Email:</label>
 						<input type="text" name='email' id="txEmail" required onkeyup="vdEmail()" oninput="vdEmail()" onpaste="vdEmail()"/>
-						<img src="Image/false.png" id="icoEmail" alt="Not Accepted" /><br />
+						<img src="image/false.png" id="icoEmail" alt="Not Accepted" /><br />
 						<span>* Sesuai dengan format alamat surel (x@x.xx)</span>
 					</li>
 					<li>
 						<label for="avatar">Avatar:</label>
 						<input type="file" name='avatar' id="avatar" onchange='vdAvatar()'/> &nbsp;&nbsp;&nbsp;
-						<img src="Image/true.png" id="icoAvatar" alt="Accepted" /><br />
+						<img src="image/true.png" id="icoAvatar" alt="Accepted" /><br />
 						<span>* Hanya menerima berkas berekstensi .jpg atau .jpeg</span>
 					</li>
 					<li>

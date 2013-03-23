@@ -10,7 +10,7 @@
 	</head>
 
 <body>
-<?
+<?php
 session_start();
 	if(isset ($_SESSION['bananauser']))
 	{
@@ -73,19 +73,19 @@ session_start();
 					<h1 align="left">Edit Profile</h1>
 					<li>
 						<label style="width:230px; display:inline-block">Nama Lengkap:</label>
-						<input type="text" value="<?$profile=new profile($username);echo $profile->fullname;?>" onchange="checkNamaLengkap()" id="namalengkap" name="namalengkap"></input>
+						<input type="text" value="<?php $profile=new profile($username);echo $profile->fullname;?>" onchange="checkNamaLengkap()" id="namalengkap" name="namalengkap"></input>
 					</li>
                     <li>
 						<label style="width:230px; display:inline-block">Tanggal Lahir:</label>
-						<input type="date" value="<?echo $profile->birthday;?>" name="birthday"></input>
+						<input type="date" value="<?php echo $profile->birthday;?>" name="birthday"></input>
 					</li>
 					<li>
 						<label style="width:230px; display:inline-block">New Password:</label>
-						<input type="password" value="<?echo $profile->password;?>" onchange="checkPassword('<?echo $profile->username;?>')" name="password" id="pass"></input>
+						<input type="password" value="<?php echo $profile->password;?>" onchange="checkPassword('<?php echo $profile->username;?>')" name="password" id="pass"></input>
 					</li>
 					<li>
 						<label style="width:230px; display:inline-block">Confirmed New Password:</label>
-						<input type="password" value="<?echo $profile->password;?>" name="confirmedpass" onchange="checkConfirmedPass()" id="passconfirmed"></input>
+						<input type="password" value="<?php echo $profile->password;?>" name="confirmedpass" onchange="checkConfirmedPass()" id="passconfirmed"></input>
 					</li>
 					<li>
 						<label style="width:230px; display:inline-block">Change Avatar:</label>

@@ -6,6 +6,7 @@
 		<script src="Dashboard.js" type="text/javascript" language="javascript"> </script>
 		<script src="Raymond.js" type="text/javascript" language="javascript"> </script>
 		<script src="datetimepicker_css.js" type="text/javascript" language="javascript"> </script>
+		<script src="taskdetails.js" type="text/javascript" language="javascript"> </script>
 	</head>
 
     <body>
@@ -93,7 +94,7 @@
                             <li>
 								<label for="tugas">Status</label>
 								<div class="text"><?php echo $task->status;?></div>
-                                <form method="get" action="taskdetailscontroller.php?id=<?php $id?>>
+                                <form method="POST" action="taskdetailscontroller.php">
                                 <button>ubah status</button>
                                 </form>
 							</li>
@@ -124,7 +125,7 @@
 							<li>
 								<label for="deadline">Deadline</label>
 								<input id="deadline" type="text" size="25"/ value="<?php $array= explode("-",$task->deadline);echo $array[2]."-".$array[1]."-".$array[0];?>"readonly>
-								<a id="tanggal" href="javascript:NewCal('deadline','ddmmyyyy')" onclick="return false"><img src="image/cal.gif" alt="Pick a date"/></a>
+								<a id="tanggal" href="javascript:NewCssCal('deadline','ddmmyyyy')" onclick="return false"><img src="image/cal.gif" alt="Pick a date"/></a>
 							</li>
 							<li>
 								<label for="assignee">Assignee</label>
@@ -227,7 +228,7 @@
 							<form id="commentform">
 								<input class="task" id="commentfield" name="commentfield" type="text" size="1000"/> 
 
-								<input id="commentbutton" name="commentbutton" type="submit" value="Comment" onClick="addcomment(<?php echo "'".$username."'"?>);return false;"/>
+								<input id="commentbutton" name="commentbutton" type="submit" value="Comment" onClick="add	(<?php echo "'".$username."','"?>);return false;"/>
 							</form>
 						</div>
 						

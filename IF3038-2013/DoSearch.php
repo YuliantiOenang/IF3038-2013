@@ -59,7 +59,7 @@ if((isset($_GET['filter'])) && (isset($_GET['keyword'])) && $_GET['keyword'] != 
 			$display .=	"</div>";
 			while($db->nextRecord()){
 				$display .=	"<div>";
-				$display .=	"<p><a class='list' href='profile.php?username={$db->Record['username']}'>{$db->Record['username']}</a></p>";
+				$display .=	"<a class='list' href='profile.php?username={$db->Record['username']}'>{$db->Record['username']}</a>";
 				$display .=	"</div>";
 			}
 				$display .=	"</li>";

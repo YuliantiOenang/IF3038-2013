@@ -11,12 +11,12 @@ class DashboardWriter {
 	
 	public function writeCategory($user) {
 		$result = '';
-		$tuples = $this->db->query('SELECT kategori.IDKategori AS id, judul FROM kategori INNER JOIN usercateg USING(IDKategori) WHERE usercateg.username="' . $user . '"');
+		$tuples = $this->db->query('SELECT DISTINCT kategori.IDKategori AS id, judul FROM kategori INNER JOIN usercateg USING(IDKategori) WHERE usercateg.username="' . $user . '"');
 		while($array = mysql_fetch_assoc($tuples)) {
 			$result = $result . '<idkategori>' . $array['id'] . '</idkategori>';
 			$result = $result . '<kategori>' . $array['judul'] . '</kategori>';
 		}
-		$tuples = $this->db->query('SELECT IDKategori, judul FROM kategori WHERE username="' . $user . '"');
+		$tuples = $this->db->query('SELECT DISTINCT IDKategori, judul FROM kategori WHERE username="' . $user . '"');
 		while($array = mysql_fetch_assoc($tuples)) {
 			$result = $result . '<idkategori>' . $array['IDKategori'] . '</idkategori>';
 			$result = $result . '<kategori>' . $array['judul'] . '</kategori>';
@@ -26,7 +26,7 @@ class DashboardWriter {
 	
 	public function writeTask($user) {
 		$result = '';
-		$tuples = $this->db->query('SELECT tugas.IDTask AS ID, name, deadline, stat, tag, penugasan.username
+		$tuples = $this->db->query('SELECT DISTINCT tugas.IDTask AS ID, name, deadline, stat, tag, tugas.username AS pembuat
 			FROM tugas INNER JOIN penugasan USING (IDTask)
 			WHERE penugasan.username="' . $user . '"');
 		while($array = mysql_fetch_assoc($tuples)) {
@@ -40,7 +40,7 @@ class DashboardWriter {
 			else
 				$result = $result . '<canerase>false</canerase>';
 		}
-		$tuples = $this->db->query('SELECT IDTask, name, deadline, stat, tag, username
+		$tuples = $this->db->query('SELECT DISTINCT IDTask, name, deadline, stat, tag, username
 			FROM tugas WHERE username="' . $user . '"');
 		while($array = mysql_fetch_assoc($tuples)) {
 			$result = $result . '<id>' . $array['IDTask'] . '</id>';

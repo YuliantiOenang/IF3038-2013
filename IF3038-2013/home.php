@@ -61,7 +61,7 @@
 				</div>
 				
 				<div id="rightsidebar">
-					<a href='MakeTask.php' id='addtask'><i></i></a>
+					<i>&nbsp;&nbsp;&nbsp;<a href='MakeTask.php' id='addtask'></a></i>
 					<ul id="kegiatan">
 					</ul>
 				</div>

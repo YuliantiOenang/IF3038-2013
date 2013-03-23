@@ -1021,3 +1021,16 @@ margin-right:10px;
 height:35px;
 width:35px;
 }
+.text{
+margin-top:3px;
+
+
+padding: 3px;
+}
+.task a{
+	padding: 12px 0 12px 0;
+color: #fcff00;
+}
+.task a:hover {
+color: #fe9227;
+}

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include 'connectDB.php';
 class task{
 	var $name;
@@ -40,7 +40,7 @@ if(isset($_GET['idcomment']))
 $db=new DB();
 $db->connectDB();
 	$hasil=$db->query('DELETE FROM komentar WHERE IDKomentar='.$_GET['idcomment'].'');
-	$hasil=$db->query('SELECT count(*) as jumlah FROM komentar where IDTask=1');
+	$hasil=$db->query('SELECT count(*) as jumlah FROM komentar where IDTask='.$_SESSION['id'].'');
 	$array = mysql_fetch_assoc($hasil);
 	$jumlah=$array['jumlah'];
 	echo $jumlah;
@@ -48,22 +48,22 @@ $db->connectDB();
 if(isset($_POST['comment']) && isset($_POST['usernamecur'])){
 	$db=new DB();
 	$db->connectDB();
-	$hasil=$db->query('INSERT INTO komentar(IDTask,username,isi) values(1,\''.$_POST['usernamecur'].'\', \''.$_POST['comment'].'\')');
+	$hasil=$db->query('INSERT INTO komentar(IDTask,username,isi) values('.$_SESSION['id'].',\''.$_POST['usernamecur'].'\', \''.$_POST['comment'].'\')');
 }
 if(isset($_POST['username'])){
 	$db=new DB();
 	$db->connectDB();
-	$hasil=$db->query('DELETE FROM penugasan WHERE username=\''.$_POST['username'].'\' and IDTask=1');
+	$hasil=$db->query('DELETE FROM penugasan WHERE username=\''.$_POST['username'].'\' and IDTask='.$_SESSION['id'].'');
 }
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$task=new task($_GET['id']);
+	$task=new task($_SESSION['id']);
 	if($task->status==1)
 	{
-		$query="UPDATE tugas SET stat='0' WHERE IDTask='1'";
+		$query='UPDATE tugas SET stat=0 WHERE IDTask='.$_SESSION['id'].'';
 	}
 	else
 	{
-		$query="UPDATE tugas SET stat='1' WHERE IDTask='1'";
+		$query='UPDATE tugas SET stat=1 WHERE IDTask='.$_SESSION['id'].'';
 	}
 	$hasil=mysql_query($query);
 	header('location:taskdetails.php');
@@ -72,21 +72,21 @@ if(isset($_POST['deadline']) && isset($_POST['tag']))
 {
 	if($_POST['deadline']!="" && $_POST['tag']!="")
 	{
-		$query='UPDATE tugas SET deadline=\''.$_POST['deadline'].'\', tag=\''.$_POST['tag'].'\' WHERE IDTask=1';
+		$query='UPDATE tugas SET deadline=\''.$_POST['deadline'].'\', tag=\''.$_POST['tag'].'\' WHERE IDTask='.$_SESSION['id'].'';
 	}
 	else if($_POST['deadline']!="")
 	{
-		$query='UPDATE tugas SET deadline=\''.$_POST['deadline'].'\' WHERE IDTask=1';
+		$query='UPDATE tugas SET deadline=\''.$_POST['deadline'].'\' WHERE IDTask='.$_SESSION['id'].'';
 	}
 	else if($_POST['tag']!="")
 	{
-		$query='UPDATE tugas SET deadline=\''.$_POST['tag'].'\' WHERE IDTask=1';
+		$query='UPDATE tugas SET deadline=\''.$_POST['tag'].'\' WHERE IDTask='.$_SESSION['id'].'';
 	}
 	$hasil=mysql_query($query);
 }
 if (isset($_POST['assignee']))
 {
-	$query='INSERT INTO penugasan(IDTask,username) values(1,\''.$_POST['assignee'].'\')';
+	$query='INSERT INTO penugasan(IDTask,username) values('.$_SESSION['id'].',\''.$_POST['assignee'].'\')';
 	$hasil=mysql_query($query);
 }
 
