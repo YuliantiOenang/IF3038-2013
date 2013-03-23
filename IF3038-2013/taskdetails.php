@@ -11,14 +11,21 @@
     <body>
 	<?php
 		session_start();
-		$_SESSION['bananauser']='yuli';
 		if(!isset ($_SESSION['bananauser']))
-		{($_SESSION['bananauser']
+		{
 			header('location:index.php');
 		}
 		else
 		{
 				$username=$_SESSION['bananauser'];
+		}
+		if(isset($_GET['id']))
+		{
+			$id=$_GET['id'];
+		}
+		else
+		{
+			header('location:index.php');
 		}
 	?>
 	<?php
@@ -73,12 +80,12 @@
 							<h1>Details</h1>
 							<li>
 								<label for="tugas">Nama Tugas</label>
-								<div class="text"><?php$task=new task();echo $task->name;?></div>
+								<div class="text"><?php $task=new task($id);echo $task->name;?></div>
 							</li>
                             <li>
 								<label for="tugas">Status</label>
-								<div class="text"><?phpecho $task->status;?></div>
-                                <form method="post" action="taskdetailscontroller.php">
+								<div class="text"><?php echo $task->status;?></div>
+                                <form method="get" action="taskdetailscontroller.php?id=<?php $id?>>
                                 <button>ubah status</button>
                                 </form>
 							</li>
@@ -108,7 +115,7 @@
 							</li>
 							<li>
 								<label for="deadline">Deadline</label>
-								<input id="deadline" type="text" size="25"/ value="<?php$array= explode("-",$task->deadline);echo $array[2]."-".$array[1]."-".$array[0];?>"readonly>
+								<input id="deadline" type="text" size="25"/ value="<?php $array= explode("-",$task->deadline);echo $array[2]."-".$array[1]."-".$array[0];?>"readonly>
 								<a id="tanggal" href="javascript:NewCal('deadline','ddmmyyyy')" onclick="return false"><img src="image/cal.gif" alt="Pick a date"/></a>
 							</li>
 							<li>
@@ -161,7 +168,7 @@
 								</div>
 								<input id="inputtag" type="text" style="visibility:hidden;" placeholder="example1,example2"></input>
 							</li>
-							<button id="edit" name="edit" type="button" onclick="editTask(<?phpecho $task->jumlahA?>)"><b>Edit</b></button><br>
+							<button id="edit" name="edit" type="button" onclick="editTask(<?php echo $task->jumlahA?>)"><b>Edit</b></button><br>
 						<div class="task">
 						<?php
 							print "<li>";
@@ -212,7 +219,7 @@
 							<form id="commentform">
 								<input class="task" id="commentfield" name="commentfield" type="text" size="1000"/> 
 
-								<input id="commentbutton" name="commentbutton" type="submit" value="Comment" onClick="addcomment(<?phpecho "'".$username."'"?>);return false;"/>
+								<input id="commentbutton" name="commentbutton" type="submit" value="Comment" onClick="addcomment(<?php echo "'".$username."'"?>);return false;"/>
 							</form>
 						</div>
 						
