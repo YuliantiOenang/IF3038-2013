@@ -1,42 +1,13 @@
-<!DOCTYPE html>
-<?php
+<?php	
+	require_once('header.php');
 	if(isset ($_GET['kategori'])){
 		$kategori = $_GET('kategori');
 	}
 	else{
 		$kategori = 1;
 	}
+	
 ?>
-<html>
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title> Banana Board - New Task </title>
-	<link rel="stylesheet" type="text/css" href="style.css"/>   
-	<script type="text/javascript" src="datetimepicker_css.js"></script>	
-	<script src="Raymond.js" type="text/javascript" language="javascript"> </script>	
-</head>
-    
-<body>
-	<div id="content">
-		<div id="header">
-			<div id="logo">
-				<a href="home.php" class="header">
-				<img src="logo.png"/></a>
-			</div>
-			<div id="menu">
-				<ul>
-					<li> <a href="home.php"> DASHBOARD </a> </li>
-					<li> <a href="profile.php"> PROFILE </a> </li>
-					<li> <a href="index.php"> LOGOUT </a> </li>
-				</ul>
-				<form action="index.html">
-					<input class="box" type="text" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'Enter search query':this.value;" value="Enter search query">	
-					<input class="button" type="submit" value="">
-				</form>
-			</div>
-		</div>
-
 		<div id="isi">
 			<div id="leftsidebar">
 					<b>CREATE NEW TASK</b>
@@ -67,6 +38,7 @@
 							<li>
 								<label for="asignee">Assignee</label>
 								<input id="asignee" name="asignee" type="text" onKeyUp="searchSuggest()"/>
+								<span>*dipisahkan dengan ","</span>
 							</li>
 							<li id="layer1">
 							</li>

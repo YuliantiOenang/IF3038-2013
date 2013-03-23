@@ -1,3 +1,9 @@
+<?php
+	session_start();
+	if (!isset($_SESSION['bananauser']))
+		header ('location:index.php');
+	
+?>
 <!DOCTYPE html>
 <html>	
 	<head>
@@ -12,7 +18,9 @@
 		if((isset($_POST['filter'])) && (isset($_POST['keyword'])) && !empty($_POST['keyword']) && $_POST['keyword'] != "Enter search query"){
 		$filter = $_POST['filter'];
 		$keyword = $_POST['keyword'];
-		echo("<body onLoad=\"doSearch('<?php echo $filter;?>', '<?php echo $keyword;?>')\">");
+		$i = 1;
+		echo"<script type='text/javascript' language='javascript'> var i = 1;	</script>";
+		echo("<body onLoad=\"doSearch('{$filter}', '{$keyword}', {$i}, '{$_SESSION['bananauser']}')\">");
 		}
 		else
 		{

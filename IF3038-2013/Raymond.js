@@ -63,8 +63,7 @@ function checkSubmission(e, evt)
 	evt.preventDefault();
 	alert("Nama masih salah!")}
 }
-//Called from keyup on the search textbox.
-//Starts the AJAX request.
+
 function searchSuggest() {
 	if (xmlHttpReq.readyState == 4 || xmlHttpReq.readyState == 0) {
 		var str = escape(document.getElementById('asignee').value);
@@ -73,8 +72,6 @@ function searchSuggest() {
 		xmlHttpReq.send(null);
 	}		
 }
-
-//Called when the AJAX response is returned.
 function handleSearchSuggest() {
 	if (xmlHttpReq.readyState == 4) {
 		var ss = document.getElementById('layer1');
@@ -111,4 +108,39 @@ function setSearch(value) {
 	document.getElementById('asignee').value = value;
 	document.getElementById('layer1').innerHTML = '';
 	document.getElementById('layer1').className = "hidden";
+}
+
+/* SEARCH*/
+function doSearch(filter, keyword, i, user) {
+	if (xmlHttpReq.readyState == 4 || xmlHttpReq.readyState == 0) {
+		//var str = escape(document.getElementById('asignee').value);
+		xmlHttpReq.open("GET", 'DoSearch.php?filter=' + filter + '&keyword=' + keyword+ '&id=' + i+ '&user=' + user, true);
+		xmlHttpReq.onreadystatechange = handleDoSearch; 
+		xmlHttpReq.send(null);
+	}		
+}
+function handleDoSearch() {
+	if (xmlHttpReq.readyState == 4) {
+		var ss = document.getElementById('searchAll');
+		var str =xmlHttpReq.responseText;
+		ss.innerHTML += str;
+		//alert(str);
+	}
+}
+
+var ids = null;
+//Starts the AJAX request.
+function changevalues(id) {
+	ids = id;
+	if (xmlHttpReq.readyState == 4 || xmlHttpReq.readyState == 0) {
+		xmlHttpReq.open("GET", 'ChangeTaskStatus.php?id='+id, true);
+		xmlHttpReq.onreadystatechange = handleStatusChange; 
+		xmlHttpReq.send(null);
+	}		
+}
+
+//Called when the AJAX response is returned.
+function handleStatusChange() {
+	if (xmlHttpReq.readyState == 4) {
+	}
 }

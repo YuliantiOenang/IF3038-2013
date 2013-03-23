@@ -4,11 +4,11 @@ require_once('connectDB.php');
 if (isset($_GET['nama']) && $_GET['nama'] != "" ){
 $db = new DB();
 
-$res = $db->query( "SELECT fullname FROM pengguna WHERE fullname LIKE('" .$_GET['nama']. "%') ORDER BY fullname");
+$res = $db->query( "SELECT username FROM pengguna WHERE fullname LIKE('" .$_GET['nama']. "%') ORDER BY username");
 
 while($db->nextRecord()){
  
-echo $db->Record['fullname']."\n";
+echo $db->Record['username']."\n";
  
 }
 }
