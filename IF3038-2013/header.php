@@ -36,7 +36,7 @@
 					<ul>
 						<li> <a href="home.php"> DASHBOARD </a> </li>
 						<li> <a href="profile.php"> PROFILE </a> </li>
-						<li> <a href="index.php"> LOGOUT </a> </li>
+						<li> <a href="logout.php"> LOGOUT </a> </li>
 					</ul>
 					<form method="post" action="searchResult.php">
 						<input class="button" type="submit" value="">
